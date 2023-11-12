@@ -104,31 +104,8 @@
 	// login
 	async function login() {
 	    loading.value = true;
-	    try {
-	        const data = await Login({
-	            username: userInfo.username,
-	            password: userInfo.password,
-	        });
-			// 失败
-	        if (data.status >= 400 || !data.data.access_token ){
-				
-				 message.value = data.data
-				 uni.removeStorageSync("access_token");
-				 uni.removeStorageSync("refresh_token");
-				 return
-			}
-			// 成功
-	            uni.setStorageSync("access_token", data.data.access_token);
-	            uni.setStorageSync("refresh_token", data.data.refresh_token);
-				UserInfostore(data.data.userinfo)
-				router()
-				message.value = "登录成功"
-	    } catch (e) {
-			console.log(e)
-	        message.value = "请求失败，检查网络后重试"
-	    } finally {
-			loading.value = false;
-		}
+	    message.value = await Login(userInfo)
+		loading.value = false;
 	}
 	// repaire password
 	async function changePassword() {

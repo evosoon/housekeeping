@@ -35,7 +35,12 @@
 		padding: 10px;
 	}
 	
-	
+	/////////////////
+	.test{
+		padding: 100upx;
+		font-size: 50upx
+	}
+	/////////////////
 	
 	view{
 		box-sizing: border-box;

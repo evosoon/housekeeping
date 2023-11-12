@@ -3,13 +3,11 @@ import { useUserInfoStore } from '../stores/userinfo'
 
 let request = new Request().http
 
-
 interface Data {
 	status?:number
 	message?:string
 	data?:any
 }
-
 
 //get userInfo
 export async function GetInfo(){

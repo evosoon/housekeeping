@@ -25,7 +25,7 @@ export default function router() {
 		}else{
 		// console.log( '1+',pages[pages.length -1 ])
 			// uni.reLaunch({  url: '/pages/home/user' })
-			// ios 会出现bug
+			// ios 会出现bug  --- 修复在42行
 			// alert("1"+pages[pages.length -2 ].route)
 			// alert("2"+pages[pages.length -3 ].route)
 			nextTick(()=>{
@@ -38,17 +38,18 @@ export default function router() {
 							})
 						})
 					},
-					// success(){
-					// 	if((pages[pages.length -1 ].route)=='pages/login/login'){
-					// 		nextTick(()=>{
-					// 			uni.reLaunch({
-					// 				url:'/pages/home/home'
-					// 			})
-					// 		})
-					// 	}
-					// },
-					
-					})
+					success(){
+						// 修复 bug
+						// 如果设备是 ios 
+						if(uni.getSystemInfoSync().platform == 'ios'){
+							nextTick(()=>{
+								uni.reLaunch({
+									url:'/pages/home/user'
+								})
+							})
+						}
+					},
+				})
 			})
 		}
 	}
