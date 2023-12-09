@@ -25,7 +25,16 @@
 	@import '@/static/customicons.css';
 	// 设置整个项目的背景色
 	page {
-		background-color: #f8f8f8;
+		  --bace-background-color: #f8f8f8;
+		  --login_title:#333333;
+		  --backgroundColor:#fff;
+		  --borderColor:#888888;
+		  --color:#3a3a3a;
+		  --white:#fff;
+		  --gray:#cfcfcf;
+		  --shallow:#f3f7ff;
+		  --black:#555;
+		  --red:#cb4042;
 	}
 
 	/* #endif */
@@ -44,31 +53,44 @@
 	
 	view{
 		box-sizing: border-box;
+		color: var(----color);
+		background-color: var(--backgroundColor);
 	}
 	
-	:root{
-	  --login_title:#333333;
-	  --backgroundColor:#fff;
-	  --borderColor:#888888;
-	  --color:#3a3a3a;
-	  --white:#fff;
-	  --gray:#cfcfcf;
-	  --black:#555;
-	  --red:#cb4042;
-	}
+	// 微信小程序又不支持 在上面 page 里
+	// :root{
+	//   --login_title:#333333;
+	//   --backgroundColor:#fff;
+	//   --borderColor:#888888;
+	//   --color:#3a3a3a;
+	//   --white:#fff;
+	//   --gray:#cfcfcf;
+	//   --black:#555;
+	//   --red:#cb4042;
+	// }
 	
 	.box{
 		background-color: var(--backgroundColor);
 		overflow: auto;
 		height: 100vh;
 	}
+	// 背景色
 	.backgroundColor{
 		background-color: var(--backgroundColor);
 	}
+	// 文字色
 	.color{
-		color: #3e3e3e;
+		color: #676767;
 	}
-	
+	.blue{
+		color: #5555ff;
+	}
+	.red{
+		color: #ff557f;
+	}
+	.boxShadow{
+		box-shadow: 0 0 10upx 1upx var(--gray);
+	}
 	.button{
 		background-color: var(--backgroundColor);
 	}
@@ -78,6 +100,7 @@
 	.button:active{
 		background-color: var(--gray);
 	}
+	
 	
 	.flex{
 	  display: flex;

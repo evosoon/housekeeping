@@ -1,0 +1,11 @@
+/* 水平间距 */
+/* 水平间距 */
+.Box .title.data-v-5fed78fb {
+  height: 10rpx;
+}
+.Box .list.data-v-5fed78fb {
+  margin: 10rpx;
+}
+.Box .list button.data-v-5fed78fb {
+  background-color: var(--backgroundColor);
+}

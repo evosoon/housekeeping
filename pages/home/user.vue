@@ -1,7 +1,7 @@
 <template>
-	<view id="Box" >
+	<view class="box" >
 		<view class="userInfo flex">
-			<img :src="Info.user_pic||'../static/baseImage.jpg'" alt="" class="userInfo_img">
+			<image :src="baseImg" mode="aspectFill" alt="" class="userInfo_img" />
 			<view class="userInfo_info flex">
 				{{Info.nickname?Info.nickname:'未登录'}}
 			</view>
@@ -10,45 +10,48 @@
 				<uni-icons type="right" size="16" color='#959595' class="userInfo_type_icon flex"></uni-icons>
 			</view>
 		</view>
+		
+		<view class="work flex color">
+			<view v-for="item in works" :key="item.id" class="work-item">
+				{{item.title}}
+			</view>
+		</view>
 		<view class="list">
-			<uni-list-item  title="消息中心" :to="`/pages/message/mesage`" />
-			<uni-list-item  title="常见问题" :to="`/pages/message/mesage`" />
-			<uni-list-item  title="设置" rightText="进入设置" :to="`/pages/public/setting`"/>
+			<uni-list-item class="item" title="消息中心" clickable  @click="jump('/pages/user/message')" />
+			<uni-list-item class="item" title="常见问题" :to="`/pages/public/assist`" />
+			<uni-list-item class="item" title="设置" rightText="进入设置" :to="`/pages/public/setting`"/>
 		</view>
 	</view>
 </template>
 
 <script setup>
-	import { reactive } from 'vue'
+	import { ref,reactive } from 'vue'
 	import { onLoad,onShow } from "@dcloudio/uni-app"
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
+	import RouteIntercept from '../../hooks/RouteIntercept';
+	import baseImg from '@/utils/imgs/baseImg'
+	
+	const works = ref([{id:1,title:'功能1'},{id:2,title:'功能2'},{id:3,title:'功能3'}])
+	
 	const Info = useUserInfoStore()
 	
 	function jump(address){
-		uni.navigateTo({
-			url:address
-		})
+		RouteIntercept(address)
 	}
 		
 </script>
 
 <style lang="scss" scoped>
-	#Box{
+	.box{
+		background-color: var(--bace-background-color);
 		.userInfo{
-			height: 200upx;
-			margin: 20upx;
-			border-radius: 20upx;
-			box-shadow: 0 0 10upx 2upx var(--gray);
-			background-color:var(--backgroundColor);
+			padding: 20upx 20upx 50upx 20upx;
+			border-bottom: 5upx solid var(--bace-background-color);
 			.userInfo_img{
-				justify-content: center;
-				align-items: center;
-				border-radius: 50%;
-				width: 140upx;
-				height: 140upx;
-				margin: 30upx;
-				object-fit: cover;
-				box-shadow: 0 0 10upx 2upx var(--gray) inset;
+				width: 200upx;
+				height: 200upx;
+				margin-right: 20upx;
+				border-radius: 30upx;
 			}
 			.userInfo_info{
 				flex: 1;
@@ -62,6 +65,22 @@
 				align-items: center;
 				height: 100%;
 				
+			}
+		}
+		.work{
+			height: 150upx;
+			align-items: center;
+			margin-bottom: 40upx;
+			.work-item{
+				flex: 1;
+				text-align: center;
+			}
+		}
+		.list{
+			border-radius: 45upx;
+			overflow: hidden;
+			.item{
+				height: 120upx;
 			}
 		}
 	}

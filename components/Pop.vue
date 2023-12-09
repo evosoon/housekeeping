@@ -1,24 +1,27 @@
 <template>
 	<view>
 		<uni-list-item  title="退出账号" clickable  @click="open = true" />
-		<Teleport to="body">
-		  <view v-if="open" class="modal flex">
-			<view class="center">
-				<view class="title">
-					{{props.message}}
-				</view>
-				<view class="buttons flex">
-					<button class="button" @click="submit()">确定</button>
-					<button class="button" @click="open = false">取消</button>
-				</view>
+		<!-- 微信小程序又不支持 -->
+	<!-- 	<teleport to="body">
+			<view v-if="open" class="modal flex">
+						<view class="center">
+							<view class="title">
+								{{props.message}}
+							</view>
+							<view class="buttons flex">
+								<button class="button" @click="submit()">确定</button>
+								<button class="button" @click="open = false">取消</button>
+							</view>
+						</view>
 			</view>
-		  </view>
-		</Teleport>
+		</teleport> -->
+		
 	</view>
 </template>
 
 <script setup>
 	import {ref} from 'vue'
+	import { onLoad,onShow } from "@dcloudio/uni-app"
 	const props = defineProps({
 		message:{
 			tupe:String,

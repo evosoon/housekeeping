@@ -1,0 +1,54 @@
+/* 水平间距 */
+/* 水平间距 */
+.Box.data-v-ba03e1e9 {
+  flex-direction: column;
+}
+.Box .background .backgrpund_img.data-v-ba03e1e9 {
+  width: 100%;
+  object-fit: contain;
+}
+.Box .info.data-v-ba03e1e9 {
+  height: 200rpx;
+  position: relative;
+  border-radius: 0 0 40rpx 40rpx;
+  padding: 40rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 0 10rpx 1rpx var(--gray);
+}
+.Box .info .info_username.data-v-ba03e1e9 {
+  position: absolute;
+  height: 100rpx;
+  line-height: 120rpx;
+  font-size: 50rpx;
+  font-weight: 600;
+  padding-top: 10rpx;
+  top: -100rpx;
+}
+.Box .info .info_button.data-v-ba03e1e9 {
+  position: absolute;
+  top: -60rpx;
+  right: 40rpx;
+  color: var(--backgroundColor);
+  background-color: var(--borderColor);
+}
+.Box .info.data-v-ba03e1e9::before {
+  content: "";
+  position: absolute;
+  height: 100rpx;
+  border-radius: 40rpx 40rpx 0 0;
+  background-color: var(--backgroundColor);
+  left: 0;
+  right: 0;
+  top: -100rpx;
+  bottom: 0;
+}
+.Box .list.data-v-ba03e1e9 {
+  padding: 40rpx;
+  margin-bottom: 20rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 0 5rpx 1rpx var(--gray);
+}
+.Box .list img.data-v-ba03e1e9 {
+  object-fit: cover;
+  width: 100%;
+}

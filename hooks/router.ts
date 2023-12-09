@@ -28,10 +28,13 @@ export default function router() {
 			// ios 会出现bug  --- 修复在42行
 			// alert("1"+pages[pages.length -2 ].route)
 			// alert("2"+pages[pages.length -3 ].route)
+			
+			
 			nextTick(()=>{
 				uni.navigateBack({
 					delta:2,
 					fail(){
+						alert('f')
 						nextTick(()=>{
 							uni.reLaunch({
 								url:'/pages/home/home'
@@ -41,7 +44,7 @@ export default function router() {
 					success(){
 						// 修复 bug
 						// 如果设备是 ios 
-						if(uni.getSystemInfoSync().platform == 'ios'){
+						if( uni.getSystemInfoSync().platform == 'mp-weixin' || uni.getSystemInfoSync().platform == 'ios'){
 							nextTick(()=>{
 								uni.reLaunch({
 									url:'/pages/home/user'
@@ -51,6 +54,8 @@ export default function router() {
 					},
 				})
 			})
+			
+			
 		}
 	}
 	// 非登陆页面跳转

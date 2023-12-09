@@ -1,0 +1,9 @@
+/* 水平间距 */
+/* 水平间距 */
+.image.data-v-07e72d3c {
+  width: 100%;
+}
+.t.data-v-07e72d3c {
+  background-color: #f0f0f0;
+  padding: 20rpx;
+}

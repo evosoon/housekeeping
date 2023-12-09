@@ -1,12 +1,12 @@
 export interface UserInfo {
 	id:number
+	roleId:number
 	username:string
 	nickname:string
+	gender:string
 	email:string
-	role:string
-	user_pic:string
+	userPic:string
 	phone_number:number
-	is_frozen:boolean
+	isFrozend:boolean
 	createTime:any
-	
 }

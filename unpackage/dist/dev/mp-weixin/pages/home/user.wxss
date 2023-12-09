@@ -1,0 +1,32 @@
+/* 水平间距 */
+/* 水平间距 */
+.Box .userInfo.data-v-e13bad76 {
+  height: 200rpx;
+  margin: 20rpx;
+  border-radius: 20rpx;
+}
+.Box .userInfo .userInfo_img.data-v-e13bad76 {
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 140rpx;
+  height: 140rpx;
+  margin: 30rpx;
+  object-fit: cover;
+  box-shadow: 0 0 10rpx 2rpx var(--gray) inset;
+}
+.Box .userInfo .userInfo_info.data-v-e13bad76 {
+  flex: 1;
+  align-items: center;
+}
+.Box .userInfo .userInfo_type.data-v-e13bad76 {
+  padding: 40rpx;
+  align-items: center;
+}
+.Box .userInfo .userInfo_type_icon.data-v-e13bad76 {
+  align-items: center;
+  height: 100%;
+}
+.Box .list .item.data-v-e13bad76 {
+  height: 120rpx;
+}

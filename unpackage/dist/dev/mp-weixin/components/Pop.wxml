@@ -1,0 +1,1 @@
+<view class="data-v-7e9cddbc"><uni-list-item wx:if="{{b}}" class="data-v-7e9cddbc" bindclick="{{a}}" u-i="7e9cddbc-0" bind:__l="__l" u-p="{{b}}"/></view>

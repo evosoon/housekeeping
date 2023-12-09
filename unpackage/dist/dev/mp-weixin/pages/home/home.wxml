@@ -1,0 +1,1 @@
+<view class="Box data-v-07e72d3c"><button class="data-v-07e72d3c" bindtap="{{a}}">按钮</button> 经纬度 ：{{b}} - {{c}} <block wx:for="{{d}}" wx:for-item="i"><uni-card wx:if="{{e}}" class="data-v-07e72d3c" u-s="{{['d']}}" u-i="{{i.a}}" bind:__l="__l" u-p="{{e}}"><text class="uni-body data-v-07e72d3c">信息...</text></uni-card></block></view>

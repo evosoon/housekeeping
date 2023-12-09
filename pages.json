@@ -6,18 +6,19 @@
 		}
 		},{
             "path" : "pages/home/user",
-			"needLogin": true,
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
             }
         },
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationStyle": "custom",
-				"disableSwipeBack":true
+				"disableSwipeBack":true,
+				// "navigationStyle": "custom"
+				"navigationBarTitleText": "Login"
 			}
 		}
         ,{
@@ -34,17 +35,17 @@
             "path" : "pages/user/center",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
 				"transparentTitle":"auto",
                 "enablePullDownRefresh": false
             }
             
         }
         ,{
-            "path" : "pages/user/message/message",
+            "path" : "pages/user/message",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "消息中心",
                 "enablePullDownRefresh": false
             }
             
@@ -76,6 +77,60 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/changeInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "安全信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/feedback",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "意见反馈",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/privacyPolicy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "隐私政策",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/information",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/messageList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "通知列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/assist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问题及帮助",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式（list 的索引项）
@@ -89,9 +144,11 @@
 		"navigationBarTitleText": "演示",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"usingComponents":{
-			"collapse-tree-item":"/components/collapse-tree-item"
-		},
+		//////////////////////////////-加上这句小程序报错-/////////////////////
+		// "usingComponents":{
+		// 	"collapse-tree-item":"/components/collapse-tree-item"
+		// },
+		//////////////////////////////////////////////////////////////////////
 		"renderingMode": "seperated", // 仅微信小程序，webrtc 无法正常时尝试强制关闭同层渲染
 		"pageOrientation": "portrait", //横屏配置，全局屏幕旋转设置(仅 APP/微信/QQ小程序)，支持 auto / portrait / landscape
 		"rpxCalcMaxDeviceWidth": 960,
@@ -121,4 +178,5 @@
 		// 	"iconWidth": "24px"
 		// }
 	}
+	
 }
