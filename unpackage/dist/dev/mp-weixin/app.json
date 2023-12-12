@@ -8,7 +8,25 @@
     "pages/user/message",
     "pages/public/setting",
     "pages/public/about",
-    "pages/public/protocol"
+    "pages/public/protocol",
+    "pages/user/changeInfo",
+    "pages/public/feedback",
+    "pages/public/privacyPolicy",
+    "pages/user/information",
+    "pages/user/messageList",
+    "pages/public/assist",
+    "pages/List/particulars",
+    "pages/List/showOrder",
+    "pages/List/showResume",
+    "pages/home/productList",
+    "pages/List/orderParticulars",
+    "pages/List/userDetails",
+    "pages/List/schedule",
+    "pages/List/orderDetails",
+    "pages/List/myResume",
+    "pages/List/myOrder",
+    "pages/List/createResume",
+    "pages/List/createOrder"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -32,10 +50,17 @@
         "text": "主页"
       },
       {
+        "pagePath": "pages/home/productList",
+        "text": "产品"
+      },
+      {
         "pagePath": "pages/home/user",
         "text": "用户"
       }
     ]
   },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
   "usingComponents": {}
 }

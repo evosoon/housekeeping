@@ -1,34 +1,5 @@
-<template>
-	<view class="Box">
-		<!-- <img class="image" src="https://ts1.cn.mm.bing.net/th/id/R-C.eec02321ea106169d757f427b98b358d?rik=%2bgK43uKTPrZbCw&riu=http%3a%2f%2f00.minipic.eastday.com%2f20170823%2f20170823152907_d41d8cd98f00b204e9800998ecf8427e_4.jpeg&ehk=FsISayQ5Gjp%2boHXA8OW7nhrZdn2JEzUKk3lfW%2br0P70%3d&risl=&pid=ImgRaw&r=0" alt=""> -->
-		<view class="location"  @click="Getlocation">
-			<uni-icons custom-prefix="custom-icon" type="location" size="16"></uni-icons>
-			{{longitude ? location : "点击获取地理信息"}}
-		</view>
-		<image :src="baseImg" mode="aspectFill" alt="" class="baseImg" />
-		<view class="red border" >
-			不用管这个首页，首页不是我写
-		</view>
-		<!-- <scroll-view scroll-x="true" class="scrollView" >
-			<view class="view" v-for="item in 10" :key="item.id">
-				111
-				</view>	
-		</scroll-view> -->
-		
-		<template v-for="(item,index) in 5" :key="index">
-			<view class="test1 flex">
-				<image :src="baseImg" mode="aspectFill" alt="" class="test1_img" />
-				<view class="test1_title flex">
-					<text>我是一个标题</text>
-					<text> --- </text>
-					<text>这里写点扩展内容，不然太空了QaQ</text>
-				</view>
-			</view>
-		</template>
-	</view>
-</template>
+<!-- 
 
-<script setup>
 	import { ref, reactive,computed } from 'vue'
 	import Getlocation from '@/hooks/GetLocation.ts'
 	import baseImg from '@/utils/imgs/baseImg'
@@ -38,45 +9,76 @@
 	let location = computed(()=>{
 		return `经纬度 [ ${longitude.value} : ${latitude.value} ]`
 	})
-		
-</script>
 
-<style lang="scss" scoped>
-	.Box{
-		.location{
-			height: 80upx;
-			line-height: 80upx;
-			padding: 0 10upx;
-		}
-		.baseImg{
-			width: 100%;
-		}
-	.scrollView{
-		height: 160rpx;
-		white-space: nowrap;
-		.view{
-			width: 300upx;
-			height: 100%;
-			margin: 5upx;
-			border: 1px solid var(--gray);
-		}
-	}
-		.test1{
-			height: 210upx;
-			width: 100%;
-			padding: 5upx;
-			border-radius: 20upx;
-			margin: 10upx 0;
-			.test1_img{
-				height: 200upx;
-				width: 300upx;
-				border-radius: 10upx;
-			}
-			.test1_title{
-				padding: 0 10upx;
-				flex-direction: column;
-				
-			}
-		}
-	}
-</style>
+ -->
+ 
+ <template>
+ 	<view>
+ 		
+ 		<Swiper></Swiper>
+ 		<!-- 卡片 -->
+ 		<labelcard></labelcard>
+ 		<view class="quicksearch">
+ 			<div class="household">-放心家务-</div>
+ 			<div>
+ 				<div v-for="(item, index) in tag" :key="index" class="tag">{{item}}</div>
+ 			</div>
+ 		</view>
+ 		<view class="quicksearch">
+ 			<div class="household">-家庭救急-</div>
+ 			<div>
+ 				<div v-for="(item, index) in tag" :key="index" class="tag">{{item}}</div>
+ 			</div>
+ 		</view>
+ 	</view>
+ </template>
+ 
+ <script setup>
+ 	import {
+ 		ref,
+ 		reactive
+ 	} from "vue"
+ 	import Swiper from '../../components/Home/Swiper.vue'
+ 	import labelcard from '../../components/Home/LabelCard.vue'
+ 	
+ 	const current = ref(0)
+ 	const mode = ref('round')
+ 	const change = (e) => {
+ 		current.value = e.detail.current;
+ 	}
+ 	const tag = ['家庭保洁', '空调清洗', '地毯清洗', '沙发清洗', '开荒保洁', '玻璃清洗', '地板打蜡', '油烟机清洗']
+ </script>
+ 
+ <style scoped>
+ 	page {
+ 		background-color: #dedede;
+ 	}
+ 
+ 	.seiper {
+ 
+ 		background-color: #fff;
+ 		height: 300upx;
+ 	}
+ 
+ 	.seiper_img {
+ 		height: 300upx;
+ 		width: 100%;
+ 	}
+ 
+ 	.quicksearch {
+ 		background-color: #fff;
+ 		margin: 25upx 0;
+ 	}
+ 
+ 	.household {
+ 		height: 100upx;
+ 		line-height: 100upx;
+ 		text-align: center;
+ 	}
+ 
+ 	.tag {
+ 		display: inline-block;
+ 		height: 80upx;
+ 		padding: 0 23upx;
+ 	}
+ </style>

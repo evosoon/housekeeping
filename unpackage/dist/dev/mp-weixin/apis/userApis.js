@@ -1,19 +1,28 @@
 "use strict";
-const common_vendor = require("../common/vendor.js");
+require("../common/vendor.js");
 const utils_http = require("../utils/http.js");
-const stores_userinfo = require("../stores/userinfo.js");
+require("../stores/userinfo.js");
 let request = new utils_http.Request().http;
-async function GetInfo() {
+async function ForgetPwd(info) {
   const data = await request({
-    url: "/user/info",
-    method: "GET"
+    url: "/user/forgetPwd",
+    method: "GET",
+    data: info
   });
-  if (data.status == 401) {
-    common_vendor.index.removeStorageSync("access_token");
-    common_vendor.index.removeStorageSync("refresh_token");
-  } else if (data.status >= 200 && data.status < 300) {
-    const useUserInfo = stores_userinfo.useUserInfoStore();
-    useUserInfo.changeInfo(data.data);
-  }
+  return data.message;
 }
-exports.GetInfo = GetInfo;
+async function UpdatePwd(info) {
+  const _info = {
+    old_pwd: info.oldPwd,
+    new_pwd: info.newPwd,
+    re_pwd: info.rePwd
+  };
+  const data = await request({
+    url: "/user/updatePwd",
+    method: "PATCH",
+    data: _info
+  });
+  return data.message;
+}
+exports.ForgetPwd = ForgetPwd;
+exports.UpdatePwd = UpdatePwd;

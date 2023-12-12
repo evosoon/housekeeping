@@ -12,7 +12,7 @@ const _sfc_main = {
     let jumpAddress = "";
     let type = common_vendor.ref(0);
     const typeTitle = common_vendor.computed(() => {
-      return type.value ? type.value == 1 ? "注册" : "找回密码" : "登录";
+      return type.value ? type.value == 1 ? "注册" : "验证码登录" : "用户名登录";
     });
     let loading = common_vendor.ref(false);
     let message = common_vendor.ref("");
@@ -47,64 +47,23 @@ const _sfc_main = {
       if (type.value == 1)
         await register();
       if (type.value == 2)
-        await changePassword();
+        await login();
     }
     async function login() {
       loading.value = true;
       message.value = await apis_loginApis.Login(userInfo, jumpAddress);
       loading.value = false;
     }
-    async function changePassword() {
-      loading.value = true;
-      try {
-        const data = await apis_loginApis.FindPassword(userInfo);
-        if (data.status >= 400) {
-          message.value = data.data;
-          return;
-        } else
-          console.log("修改成功");
-      } catch (e) {
-        console.log(e);
-        message.value = "请求失败，检查网络后重试";
-      } finally {
-        loading.value = false;
-      }
-    }
     async function register() {
       loading.value = true;
-      try {
-        const data = await Sign(userInfo);
-        if (data.status >= 400) {
-          message.value = data.data;
-          return;
-        }
-        message.value = "注册成功";
-        type.value = 0;
-      } catch (e) {
-        console.log(e);
-        message.value = "请求失败，检查网络后重试";
-      } finally {
-        loading.value = false;
-      }
+      message.value = await apis_loginApis.Register(userInfo);
+      loading.value = false;
     }
     async function sendEmail() {
-      try {
-        const data = {};
-        if (type.value == 1)
-          data = await apis_emailApis.SignInCode(userInfo.email);
-        if (type.value == 2)
-          data = await apis_emailApis.UpdatePasswordCode(userInfo.email);
-        if (data.status >= 400) {
-          message.value = data.data.data;
-          return;
-        } else
-          message.value = data.data || "发送成功";
-      } catch (e) {
-        console.log(e);
-        message.value = "发送失败";
-      } finally {
-        loading.value = false;
-      }
+      if (type.value == 1)
+        message.value = await apis_emailApis.SendCode(userInfo.email, 1);
+      if (type.value == 2)
+        message.value = await apis_emailApis.SendCode(userInfo.email, 3);
     }
     common_vendor.onLoad((option) => {
       jumpAddress = option.address;
@@ -116,55 +75,45 @@ const _sfc_main = {
         c: common_vendor.o(common_vendor.m(($event) => userInfo.username = $event.detail.value, {
           trim: true
         })),
-        d: common_vendor.unref(type) == 0,
-        e: userInfo.username,
-        f: common_vendor.o(common_vendor.m(($event) => userInfo.username = $event.detail.value, {
+        d: common_vendor.unref(type) !== 2,
+        e: userInfo.nickname,
+        f: common_vendor.o(common_vendor.m(($event) => userInfo.nickname = $event.detail.value, {
           trim: true
         })),
         g: common_vendor.unref(type) == 1,
-        h: userInfo.nickname,
-        i: common_vendor.o(common_vendor.m(($event) => userInfo.nickname = $event.detail.value, {
+        h: userInfo.password,
+        i: common_vendor.o(common_vendor.m(($event) => userInfo.password = $event.detail.value, {
           trim: true
         })),
-        j: common_vendor.unref(type) == 1,
-        k: userInfo.password,
-        l: common_vendor.o(common_vendor.m(($event) => userInfo.password = $event.detail.value, {
+        j: common_vendor.unref(type) != 2,
+        k: userInfo.rePassword,
+        l: common_vendor.o(common_vendor.m(($event) => userInfo.rePassword = $event.detail.value, {
           trim: true
         })),
-        m: common_vendor.unref(type) != 2,
-        n: userInfo.password,
-        o: common_vendor.o(common_vendor.m(($event) => userInfo.password = $event.detail.value, {
+        m: common_vendor.unref(type) == 1,
+        n: userInfo.email,
+        o: common_vendor.o(common_vendor.m(($event) => userInfo.email = $event.detail.value, {
           trim: true
         })),
-        p: common_vendor.unref(type) == 2,
-        q: userInfo.rePassword,
-        r: common_vendor.o(common_vendor.m(($event) => userInfo.rePassword = $event.detail.value, {
+        p: common_vendor.o(sendEmail),
+        q: common_vendor.unref(type),
+        r: userInfo.captcha,
+        s: common_vendor.o(common_vendor.m(($event) => userInfo.captcha = $event.detail.value, {
           trim: true
         })),
-        s: common_vendor.unref(type) == 1,
-        t: userInfo.email,
-        v: common_vendor.o(common_vendor.m(($event) => userInfo.email = $event.detail.value, {
-          trim: true
-        })),
-        w: common_vendor.o(sendEmail),
-        x: common_vendor.unref(type),
-        y: userInfo.captcha,
-        z: common_vendor.o(common_vendor.m(($event) => userInfo.captcha = $event.detail.value, {
-          trim: true
-        })),
-        A: common_vendor.unref(type),
-        B: common_vendor.t(common_vendor.unref(message)),
-        C: common_vendor.unref(message) ? 1 : "",
-        D: common_vendor.t(common_vendor.unref(loading) ? "loading..." : common_vendor.unref(typeTitle)),
-        E: common_vendor.o(submit),
-        F: common_vendor.o((...args) => common_vendor.unref(hooks_RouteIntercept.RouteIntercept) && common_vendor.unref(hooks_RouteIntercept.RouteIntercept)(...args)),
-        G: common_vendor.o(clear),
-        H: common_vendor.unref(type) != 2,
-        I: common_vendor.o(($event) => change(2)),
-        J: common_vendor.unref(type) != 1,
-        K: common_vendor.o(($event) => change(1)),
-        L: common_vendor.unref(type) != 0,
-        M: common_vendor.o(($event) => change(0))
+        t: common_vendor.unref(type),
+        v: common_vendor.t(common_vendor.unref(message)),
+        w: common_vendor.unref(message) ? 1 : "",
+        x: common_vendor.t(common_vendor.unref(loading) ? "loading..." : common_vendor.unref(typeTitle)),
+        y: common_vendor.o(submit),
+        z: common_vendor.o((...args) => common_vendor.unref(hooks_RouteIntercept.RouteIntercept) && common_vendor.unref(hooks_RouteIntercept.RouteIntercept)(...args)),
+        A: common_vendor.o(clear),
+        B: common_vendor.unref(type) != 2,
+        C: common_vendor.o(($event) => change(2)),
+        D: common_vendor.unref(type) != 1,
+        E: common_vendor.o(($event) => change(1)),
+        F: common_vendor.unref(type) != 0,
+        G: common_vendor.o(($event) => change(0))
       };
     };
   }

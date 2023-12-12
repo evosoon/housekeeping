@@ -1,0 +1,16 @@
+
+.form.data-v-a0fa2e65 {
+		margin-top: 30rpx;
+		padding: 15px;
+		background-color: #fff;
+}
+.btn.data-v-a0fa2e65{
+		width: 80%;
+}
+.submit.data-v-a0fa2e65{
+		display: flex;
+		flex-direction: row;
+}
+.btn.data-v-a0fa2e65{
+		width: 40%;
+}

@@ -1,0 +1,22 @@
+/* 水平间距 */
+/* 水平间距 */
+.privacyPolicy.data-v-e8e5bdc9 {
+  margin: 100rpx 20rpx;
+}
+.privacyPolicy .title.data-v-e8e5bdc9 {
+  font-size: 40rpx;
+  font-weight: 600;
+  border-bottom: 1px solid var(--borderColor);
+  padding: 10rpx 0;
+  margin-bottom: 10rpx;
+}
+.privacyPolicy p text.data-v-e8e5bdc9 {
+  font-weight: 600;
+  margin: 0 10rpx;
+}
+.privacyPolicy .zero.data-v-e8e5bdc9 {
+  height: 40rpx;
+}
+.privacyPolicy .end.data-v-e8e5bdc9 {
+  height: 200rpx;
+}

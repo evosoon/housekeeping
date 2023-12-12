@@ -10,8 +10,10 @@ interface Res {
 	data?:any
 }
 interface Login {
-	username:string
-	password:string
+	username?:string
+	password?:string
+	email?:string
+	captcha?:string | number
 }
 
 interface Register {
@@ -26,9 +28,11 @@ function UserInfostore (userInfo){
 
 export async function Login(form:Login,val:string){
 	let jumpAddress = val
+	let url = '/user/usernameLogin'
+	if(form.email) url = '/user/emailLogin'
 	try{
 		const res:Res = await request({
-			url:'/user/login',
+			url,
 			method:'POST',
 			data:form
 		})
@@ -37,14 +41,13 @@ export async function Login(form:Login,val:string){
 			if(res.status==401)uni.navigateTo({ url:"/pages/login/login" })
 			uni.removeStorageSync("access_token");
 			uni.removeStorageSync("refresh_token");
-			return res.data
+			return res.message
 		
 		// 成功
 		}else{
 			uni.setStorageSync("access_token", res.data.access_token);
 			uni.setStorageSync("refresh_token", res.data.refresh_token);
 			UserInfostore(res.data.userinfo)
-			console.log(jumpAddress)
 			if(jumpAddress){
 				uni.reLaunch({
 					url:jumpAddress
@@ -65,14 +68,14 @@ export async function Login(form:Login,val:string){
 
 //注册
 export async function Register(data:Register){
+	let _data = {...data,roleId:1}
     try {
 		const res:Res = await request({
 		    url:'/user/register',
 		    method:'POST',
-		    data
+		    data:_data
 		})
-		// if(res.status>=400)
-		return res.data
+		return res.message
 		
 	} catch(e){
 		console.log(e)

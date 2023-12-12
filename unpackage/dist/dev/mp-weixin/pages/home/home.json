@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "view",
   "usingComponents": {
-    "uni-card": "../../uni_modules/uni-card/components/uni-card/uni-card"
+    "swiper": "../../components/Home/Swiper",
+    "labelcard": "../../components/Home/LabelCard"
   }
 }

@@ -1,4 +1,6 @@
-import { baseUrl } from './baseUrl'
+import {
+	baseUrl
+} from './baseUrl'
 
 export default class Request {
 	http(param) {
@@ -7,20 +9,27 @@ export default class Request {
 		let header = param.header || {};
 		let data = Object.assign(param.data || {});
 		// let hideLoading = param.hideLoading || false;
-		   
+
 		let requestUrl = baseUrl + url;
 
 		if (method) {
 			method = method.toUpperCase(); //小写改为大写
 			if (method == "POST") {
-				header = {
-					'content-type': "application/x-www-form-urlencoded",
-					"Authorization": `Bearer ${uni.getStorageSync("access_token")}`
-				};
+				if (!header["content-type"]) {
+					header = {
+						'content-type': "application/x-www-form-urlencoded",
+						"Authorization": `${uni.getStorageSync("access_token")}`
+					};
+				} else {
+					header = {
+						'content-type': "application/json",
+						"Authorization": `${uni.getStorageSync("access_token")}`
+					};
+				}
 			} else {
 				header = {
 					'content-type': "application/json",
-					"Authorization": `Bearer ${uni.getStorageSync("access_token")}`
+					"Authorization": `${uni.getStorageSync("access_token")}`
 				};
 			}
 		}
@@ -31,6 +40,7 @@ export default class Request {
 		//       });
 		// }
 		return new Promise((resolve, reject) => {
+			// console.log(header)
 			// 请求
 			uni.request({
 				url: requestUrl,
@@ -42,31 +52,38 @@ export default class Request {
 					if (res.data.status == 401 && !requestUrl.includes('/user/refresh_token')) {
 						uni.request({
 							url: baseUrl + '/user/refresh_token',
+							method: "POST",
 							header: {
-								// "Authorization": `Bearer ${uni.getStorageSync("refresh_token")}`
+								"Authorization": `${uni.getStorageSync("refresh_token")}`
 							},
 							data: {
 								"refresh_token": uni.getStorageSync('refresh_token')
 							},
 							success: (res) => {
 								console.log(res)
-								if (res.data.status >= 400 || res.data.statusCode>400) {
+								if (res.data.status >= 400 || res.data.statusCode >=
+									400) {
 									uni.removeStorageSync('access_token');
 									uni.removeStorageSync('refresh_token');
 									uni.switchTab({
-										url:'/pages/home/home'
+										url: '/pages/home/home'
 									})
-									reject({ status: 401, message: '登陆过期' })
-									
+									reject({
+										status: 401,
+										message: '登陆过期'
+									})
+
 								} else {
-									uni.setStorageSync('access_token', res.data.data.access_token);
-									uni.setStorageSync('refresh_token', res.data.data.refresh_token);
+									uni.setStorageSync('access_token', res.data.data
+										.access_token);
+									uni.setStorageSync('refresh_token', res.data
+										.data.refresh_token);
 									uni.request({
 										url: requestUrl,
 										data: data,
 										method: method,
 										header: {
-											"Authorization": `Bearer ${uni.getStorageSync("access_token")}`
+											"Authorization": `${uni.getStorageSync("access_token")}`
 										},
 										success: (res) => {
 											resolve(res.data)
@@ -74,7 +91,7 @@ export default class Request {
 									})
 								}
 							},
-							fail:()=>{
+							fail: () => {
 								uni.removeStorageSync('access_token');
 								uni.removeStorageSync('refresh_token');
 							}

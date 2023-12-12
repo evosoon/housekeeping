@@ -1,0 +1,1 @@
+<view class="card color data-v-3fdf58cb"><view class="title flex data-v-3fdf58cb"><view class=" data-v-3fdf58cb">{{a}}</view><view class="flex data-v-3fdf58cb">{{b}} <view wx:if="{{c}}" class="red data-v-3fdf58cb"></view></view></view><view class="info data-v-3fdf58cb">{{d}}</view></view>

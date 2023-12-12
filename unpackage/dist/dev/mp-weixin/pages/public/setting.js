@@ -40,47 +40,50 @@ const _sfc_main = {
     }
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_vendor.p({
-          title: "资料编辑",
-          to: `/pages/public/about`
-        }),
+        a: common_vendor.unref(Info).username
+      }, common_vendor.unref(Info).username ? {
         b: common_vendor.p({
-          title: "绑定邮箱",
-          to: `/pages/public/about`
+          title: "资料编辑",
+          to: `/pages/user/center`
         }),
         c: common_vendor.p({
-          title: "密码修改",
-          to: `/pages/public/about`
+          title: "绑定邮箱",
+          to: `/pages/user/changeInfo?type=email`
         }),
         d: common_vendor.p({
-          title: "意见反馈",
-          to: `/pages/public/about`
+          title: "密码修改",
+          to: `/pages/user/changeInfo?type=pwd`
         }),
         e: common_vendor.p({
+          title: "意见反馈",
+          to: `/pages/public/feedback`
+        })
+      } : {}, {
+        f: common_vendor.p({
           title: "隐私政策",
           to: `/pages/public/about`
         }),
-        f: common_vendor.p({
+        g: common_vendor.p({
           title: "关于我们",
           to: `/pages/public/about`
         }),
-        g: common_vendor.p({
+        h: common_vendor.p({
           title: "服务条款",
           to: `/pages/public/protocol`
         }),
-        h: !common_vendor.unref(Info).username
+        i: !common_vendor.unref(Info).username
       }, !common_vendor.unref(Info).username ? {
-        i: common_vendor.o(($event) => jump("/pages/login/login")),
-        j: common_vendor.p({
+        j: common_vendor.o(($event) => jump("/pages/login/login")),
+        k: common_vendor.p({
           title: "加入我们",
           rightText: "登录 / 注册",
           clickable: true
         })
       } : {}, {
-        k: common_vendor.unref(Info).username
+        l: common_vendor.unref(Info).username
       }, common_vendor.unref(Info).username ? {
-        l: common_vendor.o(leave),
-        m: common_vendor.p({
+        m: common_vendor.o(leave),
+        n: common_vendor.p({
           title: "退出登录",
           clickable: true
         })

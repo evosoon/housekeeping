@@ -1,11 +1,21 @@
 /* 水平间距 */
 /* 水平间距 */
-.Box .title.data-v-5fed78fb {
+.setting.data-v-5fed78fb {
+  background-color: var(--bace-background-color);
+  height: 100vh;
+}
+.setting .title.data-v-5fed78fb {
+  background-color: var(--bace-background-color);
   height: 10rpx;
 }
-.Box .list.data-v-5fed78fb {
+.setting .list.data-v-5fed78fb {
+  border-radius: 20rpx;
+  overflow: hidden;
   margin: 10rpx;
 }
-.Box .list button.data-v-5fed78fb {
+.setting .list .item.data-v-5fed78fb {
+  height: 100rpx;
+}
+.setting .list button.data-v-5fed78fb {
   background-color: var(--backgroundColor);
 }

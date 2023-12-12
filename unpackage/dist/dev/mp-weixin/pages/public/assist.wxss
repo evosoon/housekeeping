@@ -1,0 +1,11 @@
+/* 水平间距 */
+/* 水平间距 */
+.assist.data-v-20321afb {
+  margin: 50rpx 20rpx;
+}
+.assist .button.data-v-20321afb {
+  margin-top: 40rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+}

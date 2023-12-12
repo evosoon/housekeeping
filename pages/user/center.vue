@@ -1,6 +1,6 @@
 <template>
 	<view class="Box flex">
-		<view class="background">
+		<view class="background" >
 			<image src="@/static/baseImage.jpg" mode="widthFix" alt="" />
 		</view>
 		<view class="info backgroundColor">
@@ -34,6 +34,13 @@
 			</view>
 		</view>
 		<view class="list changeInfo backgroundColor JumpView">
+			<view v-if="!changeAvatar" class="changeAvatar" @click="!changeAvatar">
+				点击更新头像
+			</view>
+			<view v-if="!changeAvatar" class="chageAvatar">
+				<input type="file"  @change="changePicture" >
+			</view>
+			
 			<view class="title">
 				{{isEdit?"编辑资料":"基本信息"}}
 			</view>
@@ -85,9 +92,18 @@
 	import { ref } from 'vue'
 	import { onLoad, onShow } from "@dcloudio/uni-app"
 	import RouteIntercept from '../../hooks/RouteIntercept';
-	import {
-		useUserInfoStore
-	} from '@/stores/userinfo.ts'
+	import { useUserInfoStore } from '@/stores/userinfo.ts'
+	import { UpLoad } from '../../apis/userApis.ts'
+	
+	const changeAvatar = ref(false)
+	
+	 function changePicture(event) {
+		console.log(1)
+	    if (event.target.files[0]) {
+	        let p = event.target.files[0];
+	    }
+	}
+	
 	const Info = useUserInfoStore()
 	// 调用 actions
 	// function change() {

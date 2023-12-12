@@ -1,0 +1,1 @@
+<view class="messageList data-v-5747b019"><block wx:for="{{a}}" wx:for-item="item" wx:key="c"><message-card wx:if="{{item.b}}" class="data-v-5747b019" u-i="{{item.a}}" bind:__l="__l" u-p="{{item.b}}"></message-card></block></view>

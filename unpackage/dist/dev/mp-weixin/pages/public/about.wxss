@@ -1,0 +1,22 @@
+/* 水平间距 */
+/* 水平间距 */
+.about.data-v-cfd0969a {
+  margin: 100rpx 20rpx;
+}
+.about .title.data-v-cfd0969a {
+  font-size: 40rpx;
+  font-weight: 600;
+  border-bottom: 1px solid var(--borderColor);
+  padding: 10rpx 0;
+  margin-bottom: 10rpx;
+}
+.about p text.data-v-cfd0969a {
+  font-weight: 600;
+  margin: 0 10rpx;
+}
+.about .zero.data-v-cfd0969a {
+  height: 40rpx;
+}
+.about .end.data-v-cfd0969a {
+  height: 200rpx;
+}

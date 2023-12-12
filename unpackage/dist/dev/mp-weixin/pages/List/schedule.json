@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-nav-bar": "../../uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "uni-calendar": "../../uni_modules/uni-calendar/components/uni-calendar/uni-calendar",
+    "segmentedcontrol": "../../components/List/SegmentedControl"
+  }
+}

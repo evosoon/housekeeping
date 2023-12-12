@@ -1,0 +1,10 @@
+
+.form.data-v-fd4a5b1e {
+		margin-top: 30rpx;
+		padding: 15px;
+		background-color: #fff;
+}
+.submit.data-v-fd4a5b1e {
+		display: flex;
+		flex-direction: row;
+}

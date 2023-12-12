@@ -1,3 +1,3 @@
 "use strict";
-const baseUrl = "http://f94a46.r15.vip.cpolar.cn";
+const baseUrl = "http://localhost:8000";
 exports.baseUrl = baseUrl;

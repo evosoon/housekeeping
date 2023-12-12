@@ -4,8 +4,8 @@
 				{{typeTitle}}
 			</view>
 			<view class="form" v-show="type!==2">
-				<view class="form-title color">{{type?'用户名':'用户名 / 邮箱'}}</view>
-				<input class="form-input"  v-model.trim="userInfo.username" placeholder="请输入用户名/邮箱" />
+				<view class="form-title color">用户名</view>
+				<input class="form-input"  v-model.trim="userInfo.username" placeholder="用户名" />
 			</view>
 			<view class="form" v-show="type==1">	
 				<view class="form-title color">昵称</view>
@@ -15,13 +15,13 @@
 				<view class="form-title color" >密码</view>
 				<input class="form-input" type="password" v-model.trim="userInfo.password" placeholder="请输入密码" />
 			</view>
-			<view class="form"  v-show="type==2">
+		<!-- 	<view class="form"  v-show="type==2">
 				<view class="form-title color">新密码</view>
 				<input class="form-input" type="password" v-model.trim="userInfo.password" placeholder="请输入密码" />
-			</view>
+			</view> -->
 			<view class="form" v-show="type==1">	
 				<view class="form-title color">确认密码</view>
-				<input class="form-input" v-model.trim="userInfo.rePassword" placeholder="请确认密码" />
+				<input class="form-input" type="password" v-model.trim="userInfo.rePassword" placeholder="请确认密码" />
 			</view>
 			<view class="form" v-show="type">
 				<view class="form-title color">邮箱</view>
@@ -44,9 +44,9 @@
 			</view>
 			
 			<view class="links flex">
-				<a v-show="type!=2" @click="change(2)"> 忘记密码 </a>
+				<a v-show="type!=2" @click="change(2)"> 验证码登录 </a>
 				<a v-show="type!=1" @click="change(1)"> 去注册</a>
-				<a v-show="type!=0" @click="change(0)"> 去登录 </a>
+				<a v-show="type!=0" @click="change(0)"> 用户名登录 </a>
 			</view>
 	</view>
 </template>
@@ -54,7 +54,7 @@
 <script setup>
 	import {reactive,ref,computed,watch,nextTick} from 'vue'
 	import {Login,Register} from '@/apis/loginApis'
-	import {SignInCode,UpdatePasswordCode} from '@/apis/emailApis'
+	import {SendCode} from '@/apis/emailApis'
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
 	import RouteIntercept from '../../hooks/RouteIntercept';
 	import { onLoad,onShow } from "@dcloudio/uni-app"
@@ -65,7 +65,7 @@
 	let type = ref(0)
 	
 	const typeTitle = computed(()=>{
-		return type.value?(type.value==1?'注册' :'找回密码'):'登录'
+		return type.value?(type.value==1?'注册' :'验证码登录'):'用户名登录'
 	})
 	// 加载
 	let loading = ref(false)
@@ -100,7 +100,7 @@
 	async function submit(){
 		if(type.value==0) await login()
 		if(type.value==1) await register()
-		if(type.value==2) await changePassword()
+		if(type.value==2) await login()
 	}
 	// login
 	async function login() {
@@ -109,55 +109,26 @@
 		loading.value = false;
 	}
 	// repaire password
-	async function changePassword() {
-	    loading.value = true;
-	        // const data = await FindPassword(userInfo);
-			loading.value = false;
-	}
+	// async function changePassword() {
+	//     loading.value = true;
+	//         // const data = await FindPassword(userInfo);
+	// 		loading.value = false;
+	// }
 	// 注册
 	async function register() {
 	    loading.value = true;
-	    try {
-	        const data = await Sign(userInfo);
-			// fail
-	        if (data.status >= 400){
-	        	 message.value = data.data
-				 return
-	        }
-			// success
-			message.value='注册成功'
-			type.value = 0
-	    } catch (e) {
-			console.log(e)
-	        message.value = "请求失败，检查网络后重试"
-	    } finally {
-			loading.value = false;
-		}
+	    message.value = await Register(userInfo);
+		loading.value = false;
 	}
 	// 邮件
 	async function sendEmail(){
-		try{
-			const data = {}
-		    if (type.value == 1)  data = await SignInCode(userInfo.email);
-			if (type.value == 2)  data = await UpdatePasswordCode(userInfo.email);
-		    if (data.status >= 400){
-		    	 message.value = data.data.data
-		    	 return
-		    }
-		    else message.value =data.data || "发送成功";
-		} catch(e) {
-		    console.log(e)
-			message.value = '发送失败'
-		} finally {
-			loading.value = false;
-		}
+		    if (type.value == 1)  message.value  = await SendCode(userInfo.email,1);
+			if (type.value == 2)  message.value  = await SendCode(userInfo.email,3);
 	}
-	
 	function UserInfostore (userInfo){
 		const useUserInfo = useUserInfoStore()
 		useUserInfo.changeInfo(userInfo)
 	}
-	
 	onLoad( option=>{
 		jumpAddress = option.address
 	})

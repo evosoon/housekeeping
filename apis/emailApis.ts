@@ -1,20 +1,21 @@
-import axiosInstance from '../utils/http'
 
-// 注册验证码
-export function SignInCode(address){
-    return axiosInstance({
-        url:`/email/signup_captcha?address=${address}`,
-    })
+import Request from '../utils/http'
+
+let request = new Request().http
+
+interface Res {
+	status?:number
+	message?:string
+	data?:any
 }
-// 修改email验证码
-export function UpdateInfoCode(address){
-    return axiosInstance({
-        url:`/email/reset_email_captcha?address=${address}`,
-    })
-}
-// 找回密码
-export function UpdatePasswordCode(address){
-    return axiosInstance({
-        url:`/email/reset_password_captcha?address=${address}`,
-    })
+// 验证码
+// type:1,发送注册验证码
+// type:2,发送登录验证码
+// type:3,发送找回密码验证码
+export async function SendCode(email:string,type:number){
+	const data:Res = await request({
+		url:`/user/sendEmailCode?email=${email}&type=${type}`,
+		method:'GET',
+	})
+	return data.status>=200 && data.status<300 ? '发送成功' :'发送失败'
 }

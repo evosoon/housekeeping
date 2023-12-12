@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-nav-bar": "../../uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "uni-td": "../../uni_modules/uni-table/components/uni-td/uni-td",
+    "uni-tr": "../../uni_modules/uni-table/components/uni-tr/uni-tr",
+    "uni-table": "../../uni_modules/uni-table/components/uni-table/uni-table",
+    "uni-card": "../../uni_modules/uni-card/components/uni-card/uni-card",
+    "orderform": "../../components/List/OrderForm"
+  }
+}

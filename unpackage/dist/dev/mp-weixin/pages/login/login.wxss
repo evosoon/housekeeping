@@ -27,7 +27,7 @@
   margin: 20rpx 0;
 }
 .Box .form .form-input.data-v-e4e4508d {
-  height: 100rpx;
+  height: 80rpx;
   padding-left: 20rpx;
   margin: 30rpx 0;
   border: 1px solid var(--borderColor);

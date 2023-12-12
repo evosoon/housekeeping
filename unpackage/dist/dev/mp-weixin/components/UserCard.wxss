@@ -1,0 +1,5 @@
+/* 水平间距 */
+/* 水平间距 */
+.UserCard.data-v-1913f9c0 {
+  border-bottom: 10rpx solid var(--bace-background-color);
+}

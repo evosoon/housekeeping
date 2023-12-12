@@ -1,0 +1,14 @@
+
+.seiper_img.data-v-edff6b0c {
+		height: 300rpx;
+		width: 100%;
+}
+.swiper.data-v-edff6b0c {
+		height: 300rpx;
+}
+.swiper-item.data-v-edff6b0c {
+		display: block;
+		height: 300rpx;
+		line-height: 300rpx;
+		text-align: center;
+}

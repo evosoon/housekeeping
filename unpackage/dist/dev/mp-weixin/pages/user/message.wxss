@@ -1,0 +1,29 @@
+/* 水平间距 */
+/* 水平间距 */
+.message.data-v-eba5faec {
+  padding: 20rpx;
+}
+.message .form.data-v-eba5faec {
+  height: 100rpx;
+}
+.message .form input.data-v-eba5faec {
+  border: 1rpx solid var(--gray);
+  border-radius: 20rpx;
+  height: 50rpx;
+  padding: 10rpx 20rpx;
+}
+.message .buttons.data-v-eba5faec {
+  margin-bottom: 50rpx;
+  padding: 20rpx 0;
+  border-radius: 20rpx;
+  border: 5rpx solid var(--bace-background-color);
+}
+.message .buttons .button.data-v-eba5faec {
+  flex: 1;
+  text-align: center;
+  margin: 10rpx;
+  padding: 5rpx;
+}
+.message .UserCardList.data-v-eba5faec {
+  border-top: 10rpx solid var(--bace-background-color);
+}

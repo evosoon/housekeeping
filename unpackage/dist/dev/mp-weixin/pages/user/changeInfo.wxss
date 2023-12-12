@@ -1,0 +1,41 @@
+/* 水平间距 */
+/* 水平间距 */
+.Box .title.data-v-a6ab6c2e {
+  padding-left: 20rpx;
+  border-left: 5rpx solid var(--borderColor);
+  font-size: 40rpx;
+  font-weight: 600;
+  margin: 20rpx;
+  margin-left: 30rpx;
+}
+.Box .form.data-v-a6ab6c2e {
+  margin: 40rpx 20rpx;
+}
+.Box .form .form-title.data-v-a6ab6c2e {
+  padding-left: 20rpx;
+  height: 40rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  margin: 10rpx;
+}
+.Box .form .form-view.data-v-a6ab6c2e {
+  padding-left: 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+}
+.Box .form .form-input.data-v-a6ab6c2e {
+  padding-left: 20rpx;
+  margin: 10rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  border: 1px solid var(--borderColor);
+}
+.Box .form .button.data-v-a6ab6c2e {
+  flex: 1;
+  margin: 10rpx;
+  height: 65rpx;
+  line-height: 65rpx;
+  background-color: var(--borderColor);
+  color: var(--backgroundColor);
+}

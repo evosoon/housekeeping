@@ -2353,13 +2353,14 @@
   border-color: #e9e9eb;
 }
 page {
-  background-color: #f8f8f8;
+  --bace-background-color: #f8f8f8;
   --login_title:#333333;
   --backgroundColor:#fff;
   --borderColor:#888888;
   --color:#3a3a3a;
   --white:#fff;
   --gray:#cfcfcf;
+  --shallow:#f3f7ff;
   --black:#555;
   --red:#cb4042;
 }
@@ -2386,7 +2387,13 @@ view {
   background-color: var(--backgroundColor);
 }
 .color {
-  color: #3e3e3e;
+  color: #676767;
+}
+.blue {
+  color: #5555ff;
+}
+.red {
+  color: #ff557f;
 }
 .boxShadow {
   box-shadow: 0 0 10rpx 1rpx var(--gray);

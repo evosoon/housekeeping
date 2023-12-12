@@ -1,0 +1,1 @@
+<view class="UserCard data-v-1913f9c0"><uni-list-chat wx:if="{{a}}" class="data-v-1913f9c0" u-i="1913f9c0-0" bind:__l="__l" u-p="{{a}}"></uni-list-chat></view>

@@ -11,14 +11,21 @@ class Request {
     if (method) {
       method = method.toUpperCase();
       if (method == "POST") {
-        header = {
-          "content-type": "application/x-www-form-urlencoded",
-          "Authorization": `Bearer ${common_vendor.index.getStorageSync("access_token")}`
-        };
+        if (!header["content-type"]) {
+          header = {
+            "content-type": "application/x-www-form-urlencoded",
+            "Authorization": `${common_vendor.index.getStorageSync("access_token")}`
+          };
+        } else {
+          header = {
+            "content-type": "application/json",
+            "Authorization": `${common_vendor.index.getStorageSync("access_token")}`
+          };
+        }
       } else {
         header = {
           "content-type": "application/json",
-          "Authorization": `Bearer ${common_vendor.index.getStorageSync("access_token")}`
+          "Authorization": `${common_vendor.index.getStorageSync("access_token")}`
         };
       }
     }
@@ -29,10 +36,56 @@ class Request {
         method,
         header,
         success: (res) => {
-          resolve(res.data);
+          if (res.data.status == 401 && !requestUrl.includes("/user/refresh_token")) {
+            common_vendor.index.request({
+              url: utils_baseUrl.baseUrl + "/user/refresh_token",
+              method: "POST",
+              header: {
+                "Authorization": `${common_vendor.index.getStorageSync("refresh_token")}`
+              },
+              data: {
+                "refresh_token": common_vendor.index.getStorageSync("refresh_token")
+              },
+              success: (res2) => {
+                console.log(res2);
+                if (res2.data.status >= 400 || res2.data.statusCode >= 400) {
+                  common_vendor.index.removeStorageSync("access_token");
+                  common_vendor.index.removeStorageSync("refresh_token");
+                  common_vendor.index.switchTab({
+                    url: "/pages/home/home"
+                  });
+                  reject({
+                    status: 401,
+                    message: "登陆过期"
+                  });
+                } else {
+                  common_vendor.index.setStorageSync("access_token", res2.data.data.access_token);
+                  common_vendor.index.setStorageSync("refresh_token", res2.data.data.refresh_token);
+                  common_vendor.index.request({
+                    url: requestUrl,
+                    data,
+                    method,
+                    header: {
+                      "Authorization": `${common_vendor.index.getStorageSync("access_token")}`
+                    },
+                    success: (res3) => {
+                      resolve(res3.data);
+                    }
+                  });
+                }
+              },
+              fail: () => {
+                common_vendor.index.removeStorageSync("access_token");
+                common_vendor.index.removeStorageSync("refresh_token");
+              }
+            });
+          } else {
+            resolve(res.data);
+          }
         },
         //请求失败
         fail: (e) => {
+          console.log(e);
           common_vendor.index.showToast({
             title: "" + e.data.msg,
             icon: "none"

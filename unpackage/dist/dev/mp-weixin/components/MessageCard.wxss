@@ -1,0 +1,23 @@
+/* 水平间距 */
+/* 水平间距 */
+.card.data-v-3fdf58cb {
+  margin: 20rpx 0;
+  border: 1rpx solid var(--gray);
+  border-radius: 20rpx;
+}
+.card .title.data-v-3fdf58cb {
+  justify-content: space-between;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 20rpx;
+  border-bottom: 1rpx solid var(--gray);
+}
+.card .info.data-v-3fdf58cb {
+  padding: 20rpx;
+}
+.card .red.data-v-3fdf58cb {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: red;
+}

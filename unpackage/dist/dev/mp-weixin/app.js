@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
-const apis_userApis = require("./apis/userApis.js");
+const apis_userApis = require("./apis/userApis2.js");
 require("./utils/http.js");
 require("./utils/baseUrl.js");
 require("./stores/userinfo.js");
@@ -15,6 +15,24 @@ if (!Math) {
   "./pages/public/setting.js";
   "./pages/public/about.js";
   "./pages/public/protocol.js";
+  "./pages/user/changeInfo.js";
+  "./pages/public/feedback.js";
+  "./pages/public/privacyPolicy.js";
+  "./pages/user/information.js";
+  "./pages/user/messageList.js";
+  "./pages/public/assist.js";
+  "./pages/List/particulars.js";
+  "./pages/List/showOrder.js";
+  "./pages/List/showResume.js";
+  "./pages/home/productList.js";
+  "./pages/List/orderParticulars.js";
+  "./pages/List/userDetails.js";
+  "./pages/List/schedule.js";
+  "./pages/List/orderDetails.js";
+  "./pages/List/myResume.js";
+  "./pages/List/myOrder.js";
+  "./pages/List/createResume.js";
+  "./pages/List/createOrder.js";
 }
 const _sfc_main = {
   onLaunch: async function() {

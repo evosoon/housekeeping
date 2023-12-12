@@ -1,0 +1,27 @@
+
+.order.data-v-683bce6f {
+		display: flex;
+		padding: 10px 5px;
+}
+.order-pic.data-v-683bce6f {
+		width: 80px;
+		height: 80px;
+		border-radius: 40rpx;
+		display: block;
+		margin: 5rpx;
+}
+.order_name.data-v-683bce6f {
+		padding: 50rpx 10rpx;
+}
+.labelview.data-v-683bce6f {
+		border-bottom: 1px solid #f0f0f0;
+		margin-bottom: 20rpx;
+}
+.label.data-v-683bce6f {
+		margin: 10rpx 40rpx;
+}
+.salary.data-v-683bce6f {
+		color: red;
+		margin: 10rpx 40rpx;
+		font-size: 20px;
+}

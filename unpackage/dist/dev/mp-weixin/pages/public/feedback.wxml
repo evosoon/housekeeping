@@ -1,0 +1,1 @@
+<view class="feedback data-v-1992d2b5"><uni-section wx:if="{{c}}" class="data-v-1992d2b5" u-s="{{['d']}}" u-i="1992d2b5-0" bind:__l="__l" u-p="{{c}}"><uni-easyinput wx:if="{{b}}" class="data-v-1992d2b5" u-i="1992d2b5-1,1992d2b5-0" bind:__l="__l" bindupdateModelValue="{{a}}" u-p="{{b}}"></uni-easyinput></uni-section><button class="button data-v-1992d2b5">提交</button></view>

@@ -1,0 +1,10 @@
+/* 水平间距 */
+/* 水平间距 */
+.feedback.data-v-1992d2b5 {
+  margin: 100rpx 0;
+}
+.feedback .button.data-v-1992d2b5 {
+  margin: 20rpx;
+  background-color: var(--borderColor);
+  color: var(--backgroundColor);
+}

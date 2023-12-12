@@ -1,0 +1,32 @@
+
+.box.data-v-36c99c83 {
+		display: flex;
+		flex-direction: row;
+}
+.navbarbox.data-v-36c99c83 {
+		width: 220rpx;
+}
+.navbar.data-v-36c99c83 {
+		position: fixed;
+		left: 0;
+		width: 200rpx;
+		height: 100%;
+		background-color: #f3f2f2;
+		color: black;
+}
+.navbar_ul.data-v-36c99c83 {
+		list-style-type: none;
+		padding: 0;
+		text-align: center;
+}
+.navbar_li.data-v-36c99c83 {
+		height: 100rpx;
+		line-height: 100rpx;
+}
+.select_navbar_li.data-v-36c99c83{
+		height: 100rpx;
+		line-height: 100rpx;
+		background-color: #fff;
+		color: #d2be56;
+		border-left: 10rpx solid #d2c463;
+}

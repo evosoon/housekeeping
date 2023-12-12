@@ -1,14 +1,11 @@
 "use strict";
 const utils_http = require("../utils/http.js");
-function SignInCode(address) {
-  return utils_http.Request({
-    url: `/email/signup_captcha?address=${address}`
+let request = new utils_http.Request().http;
+async function SendCode(email, type) {
+  const data = await request({
+    url: `/user/sendEmailCode?email=${email}&type=${type}`,
+    method: "GET"
   });
+  return data.status >= 200 && data.status < 300 ? "发送成功" : "发送失败";
 }
-function UpdatePasswordCode(address) {
-  return utils_http.Request({
-    url: `/email/reset_password_captcha?address=${address}`
-  });
-}
-exports.SignInCode = SignInCode;
-exports.UpdatePasswordCode = UpdatePasswordCode;
+exports.SendCode = SendCode;

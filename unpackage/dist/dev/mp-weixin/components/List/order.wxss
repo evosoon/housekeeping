@@ -1,0 +1,23 @@
+
+.card.data-v-81808596 {
+		width: 90%;
+		margin-left: 4%;
+		margin-top: 40rpx;
+		padding: 10rpx;
+		box-shadow: -3rpx 3rpx 5rpx 5rpx #e7e7e7;
+}
+.work.data-v-81808596 {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 20rpx;
+		border-bottom: 3rpx solid #b9b9b9;
+}
+.workdetails.data-v-81808596 {
+		padding: 20rpx;
+}
+.text.data-v-81808596 {
+		display: flex;
+		flex-direction: column;
+		word-break: break-all
+}

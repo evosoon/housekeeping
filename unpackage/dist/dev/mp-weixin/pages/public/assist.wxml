@@ -1,0 +1,1 @@
+<view class="assist data-v-20321afb"><view class="data-v-20321afb">问题1</view><view class="data-v-20321afb">问题2</view><view class="data-v-20321afb">问题3</view><view class="data-v-20321afb">我觉得你没有问题</view><view class="button border data-v-20321afb" bindtap="{{a}}"> 问题没有解决？点击反馈给我们 </view></view>
