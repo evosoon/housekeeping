@@ -48,8 +48,9 @@ export default class Request {
 				method: method,
 				header: header,
 				success: (res) => {
+					console.log(res)
 					// 将结果抛出
-					if (res.data.status == 401 && !requestUrl.includes('/user/refresh_token')) {
+					if ((res.data.status == 401 || res.statusCode == 401) && !requestUrl.includes('/user/refresh_token')) {
 						uni.request({
 							url: baseUrl + '/user/refresh_token',
 							method: "POST",
@@ -60,9 +61,8 @@ export default class Request {
 								"refresh_token": uni.getStorageSync('refresh_token')
 							},
 							success: (res) => {
-								console.log(res)
 								if (res.data.status >= 400 || res.data.statusCode >=
-									400) {
+									400 || res.statusCode >= 400) {
 									uni.removeStorageSync('access_token');
 									uni.removeStorageSync('refresh_token');
 									uni.switchTab({
@@ -75,9 +75,9 @@ export default class Request {
 
 								} else {
 									uni.setStorageSync('access_token', res.data.data
-										.access_token);
+										.accessToken);
 									uni.setStorageSync('refresh_token', res.data
-										.data.refresh_token);
+										.data.refreshToken);
 									uni.request({
 										url: requestUrl,
 										data: data,
@@ -91,7 +91,8 @@ export default class Request {
 									})
 								}
 							},
-							fail: () => {
+							fail: (e) => {
+								console.log(e)
 								uni.removeStorageSync('access_token');
 								uni.removeStorageSync('refresh_token');
 							}

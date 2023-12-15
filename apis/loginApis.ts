@@ -45,6 +45,7 @@ export async function Login(form:Login,val:string){
 		
 		// 成功
 		}else{
+			console.log(res)
 			uni.setStorageSync("access_token", res.data.access_token);
 			uni.setStorageSync("refresh_token", res.data.refresh_token);
 			UserInfostore(res.data.userinfo)
