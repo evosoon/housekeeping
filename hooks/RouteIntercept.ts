@@ -1,5 +1,5 @@
 
-export default function RouteIntercept(url:string) {
+export default function RouteIntercept(url?:string) {
 	// 页面栈
 	let pages = getCurrentPages()
 	let nowUrl = pages[pages.length -1 ].route

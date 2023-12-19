@@ -17,7 +17,7 @@ export default class Request {
 			if (method == "POST") {
 				if (!header["content-type"]) {
 					header = {
-						'content-type': "application/x-www-form-urlencoded",
+						'content-type': "application/x-www-form-urlencoded;charset=UTF-8",
 						"Authorization": `${uni.getStorageSync("access_token")}`
 					};
 				} else {

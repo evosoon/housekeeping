@@ -12,7 +12,7 @@
 		</view>
 		
 		<view class="work flex color">
-			<view v-for="item in works" :key="item.id" class="work-item">
+			<view v-for="item in works" :key="item.id" class="work-item" @click="jump(item.url)">
 				{{item.title}}
 			</view>
 		</view>
@@ -37,7 +37,7 @@
 			return path
 	})
 	
-	const works = ref([{id:1,title:'我的订单',url:''},{id:2,title:'发布预约',url:''},{id:3,title:'科目3',url:''}])
+	const works = ref([{id:1,title:'我的订单',url:'/pages/reservation/reservation'},{id:2,title:'发布预约',url:'/pages/reservation/reservation'},{id:3,title:'科目3',url:'/pages/reservation/reservation'}])
 	
 	
 	function jump(address){
