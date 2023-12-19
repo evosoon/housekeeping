@@ -8,10 +8,10 @@
 			<view class="form-title color">邮箱</view>
 			<input class="form-input" v-model="userinfo.email"   />
 		</view>
-		<view class="form" v-if="flag==2" >
+		<!-- <view class="form" v-if="flag==2" >
 			<view class="form-title color">密码</view>
 			<input class="form-input" v-model="userinfo.password"  />
-		</view>
+		</view> -->
 		<view class="form" v-if="flag==2" >
 			<view class="form-title color">新邮箱</view>
 			<input class="form-input" v-model="userinfo.email"   />
@@ -49,7 +49,7 @@
 <script lang='ts' setup>
 	import {ref,computed,getCurrentInstance,reactive} from "vue"
 	import { onLoad, onShow } from "@dcloudio/uni-app"
-	import {ForgetPwd,UpdatePwd} from '../../apis/userAPis'
+	import {ForgetPwd,UpdatePwd,UpdateEmail} from '../../apis/userAPis'
 	import {SendCode} from '../../apis/emailApis'
 	const curInstance = getCurrentInstance()
 	const flag = ref(0)
@@ -78,13 +78,15 @@
 	}
 	
 	async function sendEmail(){
-		message.value = await SendCode(userinfo.email,3)
+		if(flag.value==1) message.value = await SendCode(userinfo.email,3)
+		if(flag.value==2) message.value = await SendCode(userinfo.email,4)
 	}
 	
 	async function submit(){
 		loading.value=true
 		if(!flag.value) message.value = await UpdatePwd(userinfo)
 		if(flag.value==1) message.value = await ForgetPwd(userinfo)
+		if(flag.value==2) message.value = await UpdateEmail(userinfo)
 		// 邮箱
 		// if(flag.value==2) message.value = await ForgetPwd(userinfo)
 		loading.value=false

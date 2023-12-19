@@ -10,7 +10,16 @@ interface Res {
 	data:any
 }
 
-// /reservation
+export async function GetReservation(data){
+	const res:Res = await request({
+		url:'/reservation',
+		method:'GET',
+		data
+	})
+	return {total:res.data.data.total,items:res.data.data.items}
+}
+
+// /reservation POST
 export async function NewReservation(data){
 	const res:Res = await request({
 		url:'/reservation',

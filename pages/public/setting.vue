@@ -27,8 +27,8 @@
 			<view class="title"></view>
 			<view class="list ">
 				<uni-list-item class="item" title="退出登录" clickable @click="leave"  />
+				<uni-list-item class="item" title="注销账户"   />
 				<!-- <Pop  :message="message='是否退出登录'" @popSuccess="popSuccess"></Pop> -->
-				<button style="	color: var(--red);" >注销账户</button>
 			</view>
 		</template>
 		<!-- <component :is="Pop"></component> -->
@@ -83,15 +83,11 @@
 		}
 		.list{
 			border-radius: 20upx;
+			margin: 10upx;
 			overflow: hidden;
 			.item{
 				height: 100upx;
 			}
-			margin: 10upx;
-			button{
-				background-color: var(--backgroundColor);
-			}
 		}
-		
 	}
 </style>

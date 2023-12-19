@@ -23,16 +23,30 @@ export async function AddResume(introduction : string, exprience : string, salar
 	})
 }
 
-export async function getResumeList(pageNum : number, pageSize : number, state ?: string) {
-		return request({
+export async function GetResumeList(pageNum:number, pageSize:number, state ?: string) {
+	const _data = {
+			pageNum:pageNum |1,
+			pageSize:pageSize |10,
+			state
+	}
+		const res:Res = await request({
 			url: '/resume',
 			method: "GET",
-			data: {
-				pageNum: pageNum,
-				pageSize: pageSize,
-				state: state
-			}
+			data:_data
 		})
+		if(res.status>=400){
+			uni.showToast({
+				title: "网络出错",
+				duration: 2000,
+				icon:'error'
+			})
+		} else{
+			return{
+				total:res?.data?.total,
+				items:res?.data?.items
+			}
+		}
+		
 }
 
 

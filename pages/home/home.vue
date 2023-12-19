@@ -13,72 +13,42 @@
  -->
  
  <template>
- 	<view>
- 		
- 		<Swiper></Swiper>
- 		<!-- 卡片 -->
- 		<labelcard></labelcard>
- 		<view class="quicksearch">
- 			<div class="household">-放心家务-</div>
- 			<div>
- 				<div v-for="(item, index) in tag" :key="index" class="tag">{{item}}</div>
- 			</div>
- 		</view>
- 		<view class="quicksearch">
- 			<div class="household">-家庭救急-</div>
- 			<div>
- 				<div v-for="(item, index) in tag" :key="index" class="tag">{{item}}</div>
- 			</div>
- 		</view>
+ 	<view class="home">
+		<view class="home-picture">
+			<image :src="baseImg" mode="widthFix" class="image"></image>
+		</view>
+		<template v-for="item in ResumeList.items">
+			<view>{{item.createId}}</view>
+			<view>{{item.introduction}}</view>
+			<view>{{item.salary}}</view>
+			<view>{{item.createTime}}</view>
+		</template>
  	</view>
  </template>
  
- <script setup>
- 	import {
- 		ref,
- 		reactive
- 	} from "vue"
- 	import Swiper from '../../components/Home/Swiper.vue'
- 	import labelcard from '../../components/Home/LabelCard.vue'
- 	
- 	const current = ref(0)
- 	const mode = ref('round')
- 	const change = (e) => {
- 		current.value = e.detail.current;
- 	}
- 	const tag = ['家庭保洁', '空调清洗', '地毯清洗', '沙发清洗', '开荒保洁', '玻璃清洗', '地板打蜡', '油烟机清洗']
+ <script lang="ts" setup>
+ 	import { ref,reactive} from "vue"
+	import baseImg from '@/utils/imgs/baseImg'
+	import {GetResumeList} from '@/apis/resumeApis'
+	import { onLoad, onShow } from "@dcloudio/uni-app"
+	let ResumeList = reactive({})
+	const getResumeList = async()=>{
+		const {total,items} = await GetResumeList({pageNum:1,pageSize:10})
+		ResumeList.total = total
+		ResumeList.items = items
+	}
+	onLoad(async()=>{
+		await getResumeList()
+	})
  </script>
  
- <style scoped>
- 	page {
- 		background-color: #dedede;
- 	}
- 
- 	.seiper {
- 
- 		background-color: #fff;
- 		height: 300upx;
- 	}
- 
- 	.seiper_img {
- 		height: 300upx;
- 		width: 100%;
- 	}
- 
- 	.quicksearch {
- 		background-color: #fff;
- 		margin: 25upx 0;
- 	}
- 
- 	.household {
- 		height: 100upx;
- 		line-height: 100upx;
- 		text-align: center;
- 	}
- 
- 	.tag {
- 		display: inline-block;
- 		height: 80upx;
- 		padding: 0 23upx;
- 	}
+ <style lang="scss" scoped>
+	.home{
+		.home-picture{
+			position: relative;
+			.image{
+				 width: 100%;
+			}
+		}
+	}
  </style>

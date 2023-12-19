@@ -12,6 +12,7 @@ interface Res {
 // type:1,发送注册验证码
 // type:2,发送登录验证码
 // type:3,发送找回密码验证码
+// type:4,发送更换邮箱验证码
 export async function SendCode(email:string,type:number){
 	const data:Res = await request({
 		url:`/user/sendEmailCode?email=${email}&type=${type}`,

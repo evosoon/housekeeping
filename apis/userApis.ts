@@ -73,6 +73,18 @@ export async function UpdatePwd(info:Info){
 	})
 	return data.message
 }
+// /user/changeEmail
+export async function UpdateEmail(info:Info){
+	const _info = {
+		captcha:info.captcha,
+	}
+	const data:Res = await request({
+		url:'/user/updatePwd',
+		method:"PATCH",
+		data:_info
+	})
+	return data.message
+}
 // /user/updateAvatar
 export async function UpLoad(e){
     console.log('Selected file:', e);
