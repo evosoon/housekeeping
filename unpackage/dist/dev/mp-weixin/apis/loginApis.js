@@ -25,6 +25,7 @@ async function Login(form, val) {
       common_vendor.index.removeStorageSync("refresh_token");
       return res.message;
     } else {
+      console.log(res);
       common_vendor.index.setStorageSync("access_token", res.data.access_token);
       common_vendor.index.setStorageSync("refresh_token", res.data.refresh_token);
       UserInfostore(res.data.userinfo);

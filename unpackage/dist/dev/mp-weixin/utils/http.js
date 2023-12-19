@@ -36,7 +36,7 @@ class Request {
         method,
         header,
         success: (res) => {
-          if (res.data.status == 401 && !requestUrl.includes("/user/refresh_token")) {
+          if ((res.data.status == 401 || res.statusCode == 401) && !requestUrl.includes("/user/refresh_token")) {
             common_vendor.index.request({
               url: utils_baseUrl.baseUrl + "/user/refresh_token",
               method: "POST",
@@ -47,8 +47,7 @@ class Request {
                 "refresh_token": common_vendor.index.getStorageSync("refresh_token")
               },
               success: (res2) => {
-                console.log(res2);
-                if (res2.data.status >= 400 || res2.data.statusCode >= 400) {
+                if (res2.data.status >= 400 || res2.data.statusCode >= 400 || res2.statusCode >= 400) {
                   common_vendor.index.removeStorageSync("access_token");
                   common_vendor.index.removeStorageSync("refresh_token");
                   common_vendor.index.switchTab({
@@ -59,8 +58,8 @@ class Request {
                     message: "登陆过期"
                   });
                 } else {
-                  common_vendor.index.setStorageSync("access_token", res2.data.data.access_token);
-                  common_vendor.index.setStorageSync("refresh_token", res2.data.data.refresh_token);
+                  common_vendor.index.setStorageSync("access_token", res2.data.data.accessToken);
+                  common_vendor.index.setStorageSync("refresh_token", res2.data.data.refreshToken);
                   common_vendor.index.request({
                     url: requestUrl,
                     data,
@@ -74,7 +73,8 @@ class Request {
                   });
                 }
               },
-              fail: () => {
+              fail: (e) => {
+                console.log(e);
                 common_vendor.index.removeStorageSync("access_token");
                 common_vendor.index.removeStorageSync("refresh_token");
               }

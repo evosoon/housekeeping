@@ -1,7 +1,7 @@
 <template>
 	<view class="Box flex">
 		<view class="background" >
-			<image src="@/static/baseImage.jpg" mode="widthFix" alt="" />
+			<image :src="getPic" mode="widthFix" alt="" />
 		</view>
 		<view class="info backgroundColor">
 			<text class="info_username color">{{Info.nickname}}</text>
@@ -34,11 +34,11 @@
 			</view>
 		</view>
 		<view class="list changeInfo backgroundColor JumpView">
-			<view v-if="!changeAvatar" class="changeAvatar" @click="!changeAvatar">
+			<view v-if="!changeAvatar" class="changeAvatar" @click="changeAvatar=!changeAvatar">
 				点击更新头像
 			</view>
-			<view v-if="!changeAvatar" class="chageAvatar">
-				<input type="file"  @change="changePicture" >
+			<view v-if="changeAvatar" class="changeAvatar">
+			  <button @click="chooseFile">选择文件</button>
 			</view>
 			
 			<view class="title">
@@ -50,31 +50,35 @@
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color">昵称</view>
-				<input class="form-input" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.nickname" />
+				<input class="form-input" v-model="update.nickname" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.nickname" />
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color" >年龄</view>
-				<input class="form-input" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.nickname" />
+				<input class="form-input" v-model="update.age" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.age?Info.age:'男/女'" />
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color">性别</view>
-				<input class="form-input" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.nickname?Info.nickname:'暂无内容'" />
+				<input class="form-input" v-model="update.gender" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.gender?Info.gender:'暂无内容'" />
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color">手机号码</view>
-				<input class="form-input" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.phone_number?Info.phone_number:'暂无内容'" />
+				<input class="form-input" v-model="update.number" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.number?Info.number:'暂无内容'" />
 			</view>
-			<view class="form"  :class="{'form-border':!isEdit}">
-				<view class="form-title color">其他</view>
-				<input class="form-input" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.phone_number?Info.phone_number:'暂无内容'" />
+			<view class="form form-border">
+				<view class="form-title color">身份</view>
+				<view class="form-view" v-text="roleName" />
 			</view>
 			<view class="form form-border">
 				<view class="form-title color">邮箱</view>
 				<view class="form-view" v-text="Info.email" />
 			</view>
+			<view class="form form-border">
+				<view class="form-title color">注册时间</view>
+				<view class="form-view" v-text="Info.createTime" />
+			</view>
 			<view class="form flex" v-if="isEdit">
 				<button @click="setIsEdit" class="button">撤销</button>
-				<button class="button">提交</button>
+				<button class="button" @click="updateInfo">提交</button>
 			</view>
 			<view class="form flex color" v-if="isEdit">
 				邮箱及密码需要到设置中修改
@@ -89,20 +93,75 @@
 </template>
 
 <script setup>
-	import { ref } from 'vue'
+	import { ref,reactive,computed } from 'vue'
 	import { onLoad, onShow } from "@dcloudio/uni-app"
 	import RouteIntercept from '../../hooks/RouteIntercept';
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
-	import { UpLoad } from '../../apis/userApis.ts'
-	
+	import { UpLoad,UpdateInfo } from '../../apis/userApis.ts'
+	import {baseUrl} from '../../utils/baseUrl'
+	import baseImg from '../../utils/imgs/baseImg'
 	const changeAvatar = ref(false)
 	
-	 function changePicture(event) {
-		console.log(1)
-	    if (event.target.files[0]) {
-	        let p = event.target.files[0];
-	    }
+	const update = reactive({
+		id : '',
+		username : '',
+		nickname : '',
+		email : '',
+		userPic  : '',
+		age : '',
+		createTime : '',
+		gender : '',
+		number : '',
+		roleId : '',
+		updateTime : '',
+	})
+	
+	const updateInfo = async () => {
+		const _update = {
+			username:Info.username,
+			roleId:Info.roleId,
+			email:Info.email,
+			createTime:Info.createTime,
+		}
+	 
+		_update.id=update.id? update.id:Info.id
+		_update.nickname=update.nickname? update.nickname:Info.nickname
+		_update.age=update.age? update.age:Info.age
+		_update.gender=update.gender? update.gender:Info.gender
+		_update.number=update.number? update.number:Info.number
+		const {status,message} = await UpdateInfo(_update)
+		if(status)setIsEdit()
+		uni.showToast({
+		title: message,
+		duration: 2000
+		})
+		
 	}
+	const roleName = computed(()=>{
+		if(Info.roleId==1)return '用户'
+		if(Info.roleId==2)return '工作者'
+	})
+	const chooseFile = async () => {
+		try {
+		const res = await uni.chooseFile({
+		count: 1, // 可以选择的文件数量
+			success: (res) => {
+			UpLoad(res.tempFiles[0],Info.username)
+		},
+		fail: (err) => {
+			console.error('Failed to choose file:', err);
+			}
+		});
+	} catch (err) {
+		console.error('Error choosing file:', err);
+		}
+	};
+	
+	const getPic = computed(()=>{
+			let path = baseImg
+			if(Info.userPic) path = Info.userPic
+			return path
+	})
 	
 	const Info = useUserInfoStore()
 	// 调用 actions
@@ -226,7 +285,16 @@
 			object-fit: cover;
 			width: 100%;
 		}
-	
+			.changeAvatar{
+				height: 40px;
+				width: 100%;
+				text-align: center;
+				color: var(--borderColor);
+				font-weight: bold;
+			    button{
+					color: var(--borderColor);
+				}
+			}
 			.title {
 				color: var(--borderColor);
 				font-size: 40upx;
@@ -234,7 +302,7 @@
 				padding: 20upx 10px;
 			}
 			.form-border{
-				border-left: 5upx solid var(--borderColor);
+				// border-left: 5upx solid var(--borderColor);
 			}
 			.form {
 				margin: 40upx 20upx;

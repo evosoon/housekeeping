@@ -1,10 +1,10 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const common_assets = require("../../common/assets.js");
 const hooks_RouteIntercept = require("../../hooks/RouteIntercept.js");
 const stores_userinfo = require("../../stores/userinfo.js");
-require("../../apis/userApis2.js");
-require("../../utils/baseUrl.js");
+const apis_userApis = require("../../apis/userApis2.js");
+const utils_baseUrl = require("../../utils/baseUrl.js");
+const utils_imgs_baseImg = require("../../utils/imgs/baseImg.js");
 require("../../utils/http.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -18,12 +18,28 @@ const _sfc_main = {
   __name: "center",
   setup(__props) {
     const changeAvatar = common_vendor.ref(false);
-    function changePicture(event) {
-      console.log(1);
-      if (event.target.files[0]) {
-        event.target.files[0];
+    const chooseFile = async () => {
+      try {
+        const res = await common_vendor.index.chooseFile({
+          count: 1,
+          // 可以选择的文件数量，这里选择1个文件
+          success: (res2) => {
+            console.log("Selected file:", res2.tempFiles[0]);
+            console.log(Info.username);
+            apis_userApis.UpLoad(res2.tempFiles[0], Info.username);
+          },
+          fail: (err) => {
+            console.error("Failed to choose file:", err);
+          }
+        });
+      } catch (err) {
+        console.error("Error choosing file:", err);
       }
-    }
+    };
+    const getPic = common_vendor.computed(() => {
+      `${utils_baseUrl.baseUrl}/upload/${Info.username}.jpg`;
+      return utils_imgs_baseImg.baseImg;
+    });
     const Info = stores_userinfo.useUserInfoStore();
     function jump(url) {
       common_vendor.index.redirectTo({
@@ -52,7 +68,7 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_assets._imports_0,
+        a: common_vendor.unref(getPic),
         b: common_vendor.t(common_vendor.unref(Info).nickname),
         c: common_vendor.t(isEdit.value ? "取消编辑" : "编辑信息"),
         d: common_vendor.o(setIsEdit),
@@ -88,11 +104,11 @@ const _sfc_main = {
         }),
         n: !changeAvatar.value
       }, !changeAvatar.value ? {
-        o: common_vendor.o(($event) => !changeAvatar.value)
+        o: common_vendor.o(($event) => changeAvatar.value = !changeAvatar.value)
       } : {}, {
-        p: !changeAvatar.value
-      }, !changeAvatar.value ? {
-        q: common_vendor.o(changePicture)
+        p: changeAvatar.value
+      }, changeAvatar.value ? {
+        q: common_vendor.o(chooseFile)
       } : {}, {
         r: common_vendor.t(isEdit.value ? "编辑资料" : "基本信息"),
         s: common_vendor.t(common_vendor.unref(Info).username),

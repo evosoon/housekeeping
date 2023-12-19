@@ -1,7 +1,7 @@
 <template>
 	<view class="box" >
 		<view class="userInfo flex">
-			<image :src="baseImg" mode="aspectFill" alt="" class="userInfo_img" />
+			<image :src="getPic" mode="aspectFill" alt="" class="userInfo_img" />
 			<view class="userInfo_info flex">
 				{{Info.nickname?Info.nickname:'未登录'}}
 			</view>
@@ -25,15 +25,20 @@
 </template>
 
 <script setup>
-	import { ref,reactive } from 'vue'
+	import { ref,reactive, computed } from 'vue'
 	import { onLoad,onShow } from "@dcloudio/uni-app"
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
 	import RouteIntercept from '../../hooks/RouteIntercept';
 	import baseImg from '@/utils/imgs/baseImg'
-	
-	const works = ref([{id:1,title:'功能1'},{id:2,title:'功能2'},{id:3,title:'功能3'}])
-	
 	const Info = useUserInfoStore()
+	const getPic = computed(()=>{
+			let path = baseImg
+			if(Info.userPic) path = Info.userPic
+			return path
+	})
+	
+	const works = ref([{id:1,title:'我的订单',url:''},{id:2,title:'发布预约',url:''},{id:3,title:'科目3',url:''}])
+	
 	
 	function jump(address){
 		RouteIntercept(address)

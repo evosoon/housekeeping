@@ -78,6 +78,15 @@
   object-fit: cover;
   width: 100%;
 }
+.list .changeAvatar.data-v-ba03e1e9 {
+  height: 40px;
+}
+.list .changeAvatar .upFile.data-v-ba03e1e9 {
+  height: 40rpx;
+  display: inline-block;
+  background-color: gray;
+  width: 100%;
+}
 .list .title.data-v-ba03e1e9 {
   color: var(--borderColor);
   font-size: 40rpx;

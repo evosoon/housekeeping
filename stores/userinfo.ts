@@ -9,7 +9,13 @@ export const useUserInfoStore = defineStore('userinfo', {
 			username: '',
 			nickname: '',
 			email: '',
-			user_pic: '',
+			userPic: '',
+			age:'',
+			createTime:'',
+			gender:'',
+			number:'',
+			roleId:'',
+			updateTime:'',
 		 };
 	},
 	// 开启后对 state 的数据读写都将持久化
@@ -18,18 +24,30 @@ export const useUserInfoStore = defineStore('userinfo', {
 	// state: () => ({ count: 0 })
 	actions: {
 		changeInfo(obj) {
+			this.id = obj.id
 			this.username = obj.username
 			this.nickname = obj.nickname
 			this.email = obj.email
-			if(obj.user_pic)this.user_pic = baseUrl+ obj.user_pic
+			if(obj.userPic)this.userPic =`${baseUrl}/upload/${obj.userPic}`
+			this.age= obj.age
+			this.createTime= obj.createTime
+			this.gender= obj.gender
+			this.number= obj.number
+			this.roleId= obj.roleId
+			this.updateTime= obj.updateTime
 		},
 		clear() {
+			this.id = ''
 			this.username = ''
 			this.nickname = ''
 			this.email = ''
-			this.user_pic = ''
+			this.userPic = ''
+			this.age= ''
+			this.createTime= ''
+			this.gender=  ''
+			this.number=  ''
+			this.roleId=  ''
+			this.updateTime=  ''
 		},
 	},
-	
 });
-

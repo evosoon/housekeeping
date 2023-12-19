@@ -9,6 +9,7 @@ interface Res {
 	message?:string
 	data?:any
 }
+
 interface Login {
 	username?:string
 	password?:string

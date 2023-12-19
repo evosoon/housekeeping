@@ -48,7 +48,6 @@ export default class Request {
 				method: method,
 				header: header,
 				success: (res) => {
-					console.log(res)
 					// 将结果抛出
 					if ((res.data.status == 401 || res.statusCode == 401) && !requestUrl.includes('/user/refresh_token')) {
 						uni.request({
