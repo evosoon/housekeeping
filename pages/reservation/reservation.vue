@@ -14,8 +14,11 @@
 			<uni-datetime-picker type="datetime" v-model="reservation.workTime" />
 		</view>
 		 
+		<view class="btns flex">
+			<button class="button clear" @click="clear">清空</button>
+			<button class="button submit" @click="submit">提交</button>
+		</view>
 	</view>
-	<button class="button" @click="submit">提交</button>
 </template>
 
 <script lang="ts" setup>
@@ -36,7 +39,14 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 		workTime:""
 	})
 	const submit = async () => {
-		await NewReservation(reservation)
+		const {status} = await NewReservation(reservation)
+		if(status)clear()
+	}
+	const clear = () => {
+		reservation.request="",
+		reservation.address="",
+		reservation.salary=0,
+		reservation.workTime=""
 	}
 	
 	onShow(()=>{
@@ -46,9 +56,17 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 
 <style lang="scss" scoped>
 	.Reservation{
-		
+		.btns{
+			width: 100%;
+			.submit{
+				flex: 3;
+			}
+			.clear{
+				flex: 1;
+			}
+		}
 		.button{
-			margin: 20upx 10upx;
+			margin: 30upx 10upx;
 			color: var(--borderColor);
 		}	
 	}

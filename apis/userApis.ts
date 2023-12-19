@@ -101,8 +101,9 @@ export async function UpLoad(e){
           fail: (err) => {
             console.error('Failed to upload file:', err);
 		uni.showToast({
-		title: "上传失败",
-		duration: 2000
+			title: "上传失败",
+		    duration: 2000,
+			icon:'error'
 		})
           }
         });
