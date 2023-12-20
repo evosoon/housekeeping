@@ -23,7 +23,9 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 	import { ref,reactive } from "vue"
 	let nowState = ref('已发布')
 	
-	const title = [{id:1,title:"已发布",state:"已发布"},{id:1,title:"进行中",state:"进行中"},{id:1,title:"已完成",state:"已完成"},]
+	const title = [ {id:1,title:"已发布",state:"已发布"},
+					{id:1,title:"进行中",state:"进行中"},
+					{id:1,title:"已完成",state:"已完成"},]
 	
 	let list = reactive({
 		total:0,

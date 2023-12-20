@@ -18,21 +18,13 @@
 		reactive,
 		onMounted
 	} from 'vue'
-	import Goodslist from '../../components/List/GoodsList.vue'
-	import Orderlist from '../../components/List/OrderList.vue'
-	import {getReservationList} from '../../apis/reservationApis'
-	import {getResumeList} from '../../apis/resumeApis'
 	const serve = reactive(['家庭保洁', '管道疏通', '数码维修', '房屋维修', '上门安装', '便民服务'])
 	const introduction = ref([])
 	const select = ref(0)
 	const changestyle = (index)=>{
 		select.value = index
 	}
-	onMounted(()=>{
-		getReservationList(1,10).then(res=>{
-			introduction.value=res.data.items
-		})
-	})
+	
 </script>
 
 <style scoped>

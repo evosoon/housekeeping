@@ -12,9 +12,11 @@
 		</view>
 		
 		<view class="work flex color">
-			<view v-for="item in works" :key="item.id" class="work-item" @click="jump(item.url)">
-				{{item.title}}
-			</view>
+			<template v-for="item in works" :key="item.id">
+				<view v-if="!item.role || Info.roleId==item.role" @click="jump(item.url)" class="work-item">
+					{{item.title}}
+				</view>
+			</template>
 		</view>
 		<view class="list">
 			<uni-list-item class="item" title="消息中心" clickable  @click="jump('/pages/user/message')" />
@@ -37,7 +39,10 @@
 			return path
 	})
 	
-	const works = ref([{id:1,title:'我的订单',url:'/pages/reservation/list'},{id:2,title:'发布预约',url:'/pages/reservation/reservation'},{id:3,title:'科目3',url:'/pages/reservation/reservation'}])
+	const works = ref([ {id:1,title:'我的订单',role:0,url:'/pages/reservation/list'},
+						{id:2,title:'发布预约',role:1,url:'/pages/reservation/reservation'},
+						{id:3,title:'个人简历',role:2,url:'/pages/resume/writeResume'}]
+					)
 	
 	
 	function jump(address){

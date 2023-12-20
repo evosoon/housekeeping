@@ -7,20 +7,16 @@ interface Res {
 	message : string
 	data : any
 }
-export async function AddResume(introduction : string, exprience : string, salary : number, state : string) {
-	return request({
+export async function NewResume(data) {
+	const res:Res = await request({
 		url: "/resume",
 		method: "POST",
 		header: {
 			'content-type': "application/json"
 		},
-		data: {
-			introduction: introduction,
-			exprience: exprience,
-			salary: salary,
-			state: state
-		}
+		data
 	})
+	console.log(res)
 }
 
 export async function GetResumeList(pageNum:number, pageSize:number, state ?: string) {

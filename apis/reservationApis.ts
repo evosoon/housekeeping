@@ -19,6 +19,7 @@ export async function GetReservation(data){
 	return {total:res.data.data.total,items:res.data.data.items}
 }
 
+
 // /reservation POST
 export async function NewReservation(data){
 	const res:Res = await request({

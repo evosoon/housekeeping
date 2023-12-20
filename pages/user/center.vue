@@ -85,9 +85,9 @@
 				<text @click="jump('/pages/public/setting')" class="blue">点击前往</text>
 			</view>
 		</view>
-		<view class="list backgroundColor">
+	<!-- 	<view class="list backgroundColor">
 			这里是占位置用的
-		</view>
+		</view> -->
 		<view style="height:500upx"></view>
 	</view>
 </template>
