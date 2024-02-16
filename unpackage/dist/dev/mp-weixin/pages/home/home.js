@@ -1,31 +1,54 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_imgs_baseImg = require("../../utils/imgs/baseImg.js");
+const apis_resumeApis = require("../../apis/resumeApis.js");
+const apis_reservationApis = require("../../apis/reservationApis.js");
+const stores_userinfo = require("../../stores/userinfo.js");
+require("../../utils/http.js");
+require("../../utils/baseUrl.js");
 if (!Math) {
-  (Swiper + labelcard)();
+  ResumeList();
 }
-const Swiper = () => "../../components/Home/Swiper.js";
-const labelcard = () => "../../components/Home/LabelCard.js";
+const ResumeList = () => "../../components/Home/ResumeList.js";
 const _sfc_main = {
   __name: "home",
   setup(__props) {
-    common_vendor.ref(0);
-    common_vendor.ref("round");
-    const tag = ["家庭保洁", "空调清洗", "地毯清洗", "沙发清洗", "开荒保洁", "玻璃清洗", "地板打蜡", "油烟机清洗"];
+    const Info = stores_userinfo.useUserInfoStore();
+    let resumeList = common_vendor.reactive({});
+    const getResumeList = async () => {
+      const { total, items } = await apis_resumeApis.GetResumeList({ pageNum: 1, pageSize: 10 });
+      console.log(items);
+      resumeList.total = total;
+      resumeList.items = items;
+    };
+    let reservationList = common_vendor.reactive({});
+    const getReservationList = async () => {
+      const { total, items } = await apis_reservationApis.GetReservation({ state: "已发布", pageNum: 1, pageSize: 10 });
+      reservationList.total = total;
+      reservationList.items = items;
+    };
+    common_vendor.onLoad(async () => {
+      if (Info && Info.roleId === 2) {
+        getReservationList();
+      } else {
+        await getResumeList();
+      }
+    });
     return (_ctx, _cache) => {
-      return {
-        a: common_vendor.f(tag, (item, index, i0) => {
+      return common_vendor.e({
+        a: common_vendor.unref(utils_imgs_baseImg.baseImg),
+        b: common_vendor.unref(Info).roleId && common_vendor.unref(Info).roleId === 1
+      }, common_vendor.unref(Info).roleId && common_vendor.unref(Info).roleId === 1 ? {
+        c: common_vendor.f(common_vendor.unref(resumeList).items, (item, k0, i0) => {
           return {
-            a: common_vendor.t(item),
-            b: index
-          };
-        }),
-        b: common_vendor.f(tag, (item, index, i0) => {
-          return {
-            a: common_vendor.t(item),
-            b: index
+            a: "07e72d3c-0-" + i0,
+            b: common_vendor.p({
+              Info: item
+            }),
+            c: common_vendor.t(item)
           };
         })
-      };
+      } : {});
     };
   }
 };

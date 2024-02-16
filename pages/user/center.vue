@@ -8,17 +8,17 @@
 			<button class="info_button color" @click="setIsEdit">{{isEdit?"取消编辑":"编辑信息"}}</button>
 			<text v-if="Info.username" class="color">用户名： {{Info.username}}\n</text>
 			<text v-if="Info.email" class="color">邮箱号： {{Info.email}}\n</text>
-			<view v-if="Info.username" class="info_label color">标 签 <uni-icons type="paperplane" size="16"></uni-icons></view>
+		<!-- 	<view v-if="Info.username" class="info_label color">标 签 <uni-icons type="paperplane" size="16"></uni-icons></view>
 			<view class="info_label flex">
 				<text class="info_label_item"># 学习</text>
 				<text class="info_label_item"># 呱呱呱</text>
 				<text class="info_label_item"># 睡觉</text>
 				<text class="info_label_item"># A6 Avant</text>
 				<text class="info_label_item"># 棒棒</text>
-			</view>
+			</view> -->
 		</view>
 
-		<view class="cards flex backgroundColor">
+<!-- 		<view class="cards flex backgroundColor">
 			<view class="button flex color">
 				<view><uni-icons type="heart" color="gray" size="16"></uni-icons> 0</view>
 				<text>喜欢</text>
@@ -32,14 +32,12 @@
 				<text><uni-icons type="notification" color="gray" size="16"></uni-icons></text>
 				<text>通知</text>
 			</view>
-		</view>
+		</view> -->
 		<view class="list changeInfo backgroundColor JumpView">
-			<view v-if="!changeAvatar" class="changeAvatar" @click="changeAvatar=!changeAvatar">
+			<view class="changeAvatar" @click="chooseFile">
 				点击更新头像
 			</view>
-			<view v-if="changeAvatar" class="changeAvatar">
-			  <button @click="chooseFile">选择文件</button>
-			</view>
+			
 			
 			<view class="title">
 				{{isEdit?"编辑资料":"基本信息"}}
@@ -54,7 +52,7 @@
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color" >年龄</view>
-				<input class="form-input" v-model="update.age" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.age?Info.age:'男/女'" />
+				<input class="form-input" v-model="update.age" :disabled='!isEdit' :class="{'form-input-line':isEdit}" :placeholder="Info.age?Info.age:'暂无内容'" />
 			</view>
 			<view class="form"  :class="{'form-border':!isEdit}">
 				<view class="form-title color">性别</view>
@@ -74,7 +72,7 @@
 			</view>
 			<view class="form form-border">
 				<view class="form-title color">注册时间</view>
-				<view class="form-view" v-text="Info.createTime" />
+				<view class="form-view" v-text="createTime" />
 			</view>
 			<view class="form flex" v-if="isEdit">
 				<button @click="setIsEdit" class="button">撤销</button>
@@ -115,7 +113,9 @@
 		roleId : '',
 		updateTime : '',
 	})
-	
+	const createTime = computed(()=>{
+		return `${Info.createTime[0]}-${Info.createTime[1]}-${Info.createTime[2]}`
+	})
 	const updateInfo = async () => {
 		const _update = {
 			username:Info.username,
@@ -277,7 +277,7 @@
 
 	.list {
 		padding: 40upx;
-		margin-bottom: 20upx;
+		margin-top: 40upx;
 		border-radius: 40upx;
 		box-shadow: 0 0 5upx 1upx var(--gray);
 

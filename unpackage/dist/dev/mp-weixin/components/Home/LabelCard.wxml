@@ -1,1 +1,0 @@
-<view class="card_view data-v-591777fe"><block wx:for="{{a}}" wx:for-item="item" wx:key="e"><view class="card data-v-591777fe" style="{{item.c}}" bindtap="{{item.d}}"><view class="p data-v-591777fe">{{item.a}}</view><view class="p data-v-591777fe">{{item.b}}</view></view></block></view>

@@ -1,54 +1,42 @@
 "use strict";
+const common_vendor = require("../common/vendor.js");
 const utils_http = require("../utils/http.js");
 let request = new utils_http.Request().http;
-async function AddResume(introduction, exprience, salary, state) {
-  return request({
+async function NewResume(data) {
+  const res = await request({
     url: "/resume",
     method: "POST",
     header: {
       "content-type": "application/json"
     },
-    data: {
-      introduction,
-      exprience,
-      salary,
-      state
-    }
+    data
   });
+  console.log(res);
 }
-async function getResumeList(pageNum, pageSize, state) {
-  return request({
+async function GetResumeList(pageNum, pageSize, state) {
+  var _a, _b;
+  const _data = {
+    pageNum: pageNum | 1,
+    pageSize: pageSize | 10,
+    state
+  };
+  const res = await request({
     url: "/resume",
     method: "GET",
-    data: {
-      pageNum,
-      pageSize,
-      state
-    }
+    data: _data
   });
+  if (res.status >= 400) {
+    common_vendor.index.showToast({
+      title: "网络出错",
+      duration: 2e3,
+      icon: "error"
+    });
+  } else {
+    return {
+      total: (_a = res == null ? void 0 : res.data) == null ? void 0 : _a.total,
+      items: (_b = res == null ? void 0 : res.data) == null ? void 0 : _b.items
+    };
+  }
 }
-async function updateResume(id, introduction, exprience, salary) {
-  return await request({
-    url: "/resume",
-    method: "PUT",
-    data: {
-      id,
-      introduction,
-      exprience,
-      salary
-    }
-  });
-}
-async function ResumeDetails(id) {
-  return await request({
-    url: "/resume/detail",
-    method: "GET",
-    data: {
-      id
-    }
-  });
-}
-exports.AddResume = AddResume;
-exports.ResumeDetails = ResumeDetails;
-exports.getResumeList = getResumeList;
-exports.updateResume = updateResume;
+exports.GetResumeList = GetResumeList;
+exports.NewResume = NewResume;

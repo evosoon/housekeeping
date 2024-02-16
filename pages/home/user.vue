@@ -32,6 +32,8 @@
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
 	import RouteIntercept from '../../hooks/RouteIntercept';
 	import baseImg from '@/utils/imgs/baseImg'
+	import {useWorkInfoStore} from '@/stores/workinfo.ts'
+	const WorkInfoStore = useWorkInfoStore()
 	const Info = useUserInfoStore()
 	const getPic = computed(()=>{
 			let path = baseImg
@@ -48,6 +50,14 @@
 	function jump(address){
 		RouteIntercept(address)
 	}
+	import { GetWorkType } from '@/apis/workTypeApis'
+	const getWorkType = async()=>{
+		const list = await GetWorkType()
+			WorkInfoStore.changeWorkTypeList(list)
+	}
+	onShow(()=>{
+		getWorkType()
+	})
 		
 </script>
 

@@ -14,6 +14,27 @@ async function GetInfo() {
     useUserInfo.changeInfo(data.data);
   }
 }
+async function UpdateInfo(data) {
+  const res = await request({
+    url: "/user/update",
+    method: "PUT",
+    data
+  });
+  if (res.status >= 200 && res.status < 300) {
+    const useUserInfo = stores_userinfo.useUserInfoStore();
+    useUserInfo.changeInfo(data);
+    return {
+      status: 1,
+      message: "更新成功"
+    };
+  } else {
+    console.log(res);
+    return {
+      status: 0,
+      message: "更新失败"
+    };
+  }
+}
 async function UpLoad(e) {
   console.log("Selected file:", e);
   const formData = new FormData();
@@ -32,11 +53,22 @@ async function UpLoad(e) {
     },
     success: (uploadRes) => {
       console.log("Upload successful:", uploadRes);
+      GetInfo();
+      common_vendor.index.showToast({
+        title: "上传成功",
+        duration: 2e3
+      });
     },
     fail: (err) => {
       console.error("Failed to upload file:", err);
+      common_vendor.index.showToast({
+        title: "上传失败",
+        duration: 2e3,
+        icon: "error"
+      });
     }
   });
 }
 exports.GetInfo = GetInfo;
 exports.UpLoad = UpLoad;
+exports.UpdateInfo = UpdateInfo;

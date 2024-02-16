@@ -68,7 +68,7 @@ export async function UpdatePwd(info:Info){
 	}
 	const data:Res = await request({
 		url:'/user/updatePwd',
-		method:"PATCH",
+		method:"PUT",
 		data:_info
 	})
 	return data.message
@@ -80,7 +80,7 @@ export async function UpdateEmail(info:Info){
 	}
 	const data:Res = await request({
 		url:'/user/updatePwd',
-		method:"PATCH",
+		method:"PUT",
 		data:_info
 	})
 	return data.message
@@ -105,6 +105,7 @@ export async function UpLoad(e){
           success: (uploadRes) => {
             console.log('Upload successful:', uploadRes);
             // 文件上传成功，可以在这里进行相关操作
+			 GetInfo()
 			uni.showToast({
 			title: "上传成功",
 			duration: 2000

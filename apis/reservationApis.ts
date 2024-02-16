@@ -48,3 +48,23 @@ export async function NewReservation(data){
 	
 	
 }
+
+export async function ReservationRemark(data){
+	const res:Res = await request({
+		url:'/reservation',
+		method:'GET',
+		data
+	})
+	return res
+}
+
+export async function SetReservationRemark(data){
+	const res:Res = await request({
+		url:'/reservation',
+		method:'post',
+		data
+	})
+	console.log(res)
+	return {total:res.data.data.total,items:res.data.data.items}
+}
+

@@ -17,14 +17,26 @@ if (!Math) {
 const _sfc_main = {
   __name: "user",
   setup(__props) {
-    const works = common_vendor.ref([{ id: 1, title: "功能1" }, { id: 2, title: "功能2" }, { id: 3, title: "功能3" }]);
     const Info = stores_userinfo.useUserInfoStore();
+    const getPic = common_vendor.computed(() => {
+      let path = utils_imgs_baseImg.baseImg;
+      if (Info.userPic)
+        path = Info.userPic;
+      return path;
+    });
+    const works = common_vendor.ref(
+      [
+        { id: 1, title: "我的订单", role: 0, url: "/pages/reservation/list" },
+        { id: 2, title: "发布预约", role: 1, url: "/pages/reservation/reservation" },
+        { id: 3, title: "个人简历", role: 2, url: "/pages/resume/writeResume" }
+      ]
+    );
     function jump(address) {
       hooks_RouteIntercept.RouteIntercept(address);
     }
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.unref(utils_imgs_baseImg.baseImg),
+        a: common_vendor.unref(getPic),
         b: common_vendor.t(common_vendor.unref(Info).nickname ? common_vendor.unref(Info).nickname : "未登录"),
         c: common_vendor.t(common_vendor.unref(Info).username ? "个人中心" : "去登录"),
         d: common_vendor.p({
@@ -34,10 +46,14 @@ const _sfc_main = {
         }),
         e: common_vendor.o(($event) => jump("/pages/user/center")),
         f: common_vendor.f(works.value, (item, k0, i0) => {
-          return {
-            a: common_vendor.t(item.title),
-            b: item.id
-          };
+          return common_vendor.e({
+            a: !item.role || common_vendor.unref(Info).roleId == item.role
+          }, !item.role || common_vendor.unref(Info).roleId == item.role ? {
+            b: common_vendor.t(item.title),
+            c: common_vendor.o(($event) => jump(item.url), item.id)
+          } : {}, {
+            d: item.id
+          });
         }),
         g: common_vendor.o(($event) => jump("/pages/user/message")),
         h: common_vendor.p({

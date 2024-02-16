@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import {baseUrl} from '../utils/baseUrl' 
 
-export const useUserInfoStore = defineStore('userinfo', {
+export const useUserInfoStore = defineStore('user', {
 	state: () => {
 		return { 
 			id:'',

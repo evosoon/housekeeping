@@ -21,18 +21,13 @@ if (!Math) {
   "./pages/user/information.js";
   "./pages/user/messageList.js";
   "./pages/public/assist.js";
-  "./pages/List/particulars.js";
-  "./pages/List/showOrder.js";
-  "./pages/List/showResume.js";
   "./pages/home/productList.js";
-  "./pages/List/orderParticulars.js";
-  "./pages/List/userDetails.js";
-  "./pages/List/schedule.js";
-  "./pages/List/orderDetails.js";
-  "./pages/List/myResume.js";
-  "./pages/List/myOrder.js";
-  "./pages/List/createResume.js";
-  "./pages/List/createOrder.js";
+  "./pages/reservation/reservation.js";
+  "./pages/reservation/list.js";
+  "./pages/reservation/reservationParticulars.js";
+  "./pages/user/showUser.js";
+  "./pages/resume/resume.js";
+  "./pages/resume/writeResume.js";
 }
 const _sfc_main = {
   onLaunch: async function() {

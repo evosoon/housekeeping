@@ -3,8 +3,8 @@ const common_vendor = require("../../common/vendor.js");
 const hooks_RouteIntercept = require("../../hooks/RouteIntercept.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 const apis_userApis = require("../../apis/userApis2.js");
-const utils_baseUrl = require("../../utils/baseUrl.js");
 const utils_imgs_baseImg = require("../../utils/imgs/baseImg.js");
+require("../../utils/baseUrl.js");
 require("../../utils/http.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -18,14 +18,51 @@ const _sfc_main = {
   __name: "center",
   setup(__props) {
     const changeAvatar = common_vendor.ref(false);
+    const update = common_vendor.reactive({
+      id: "",
+      username: "",
+      nickname: "",
+      email: "",
+      userPic: "",
+      age: "",
+      createTime: "",
+      gender: "",
+      number: "",
+      roleId: "",
+      updateTime: ""
+    });
+    const updateInfo = async () => {
+      const _update = {
+        username: Info.username,
+        roleId: Info.roleId,
+        email: Info.email,
+        createTime: Info.createTime
+      };
+      _update.id = update.id ? update.id : Info.id;
+      _update.nickname = update.nickname ? update.nickname : Info.nickname;
+      _update.age = update.age ? update.age : Info.age;
+      _update.gender = update.gender ? update.gender : Info.gender;
+      _update.number = update.number ? update.number : Info.number;
+      const { status, message } = await apis_userApis.UpdateInfo(_update);
+      if (status)
+        setIsEdit();
+      common_vendor.index.showToast({
+        title: message,
+        duration: 2e3
+      });
+    };
+    const roleName = common_vendor.computed(() => {
+      if (Info.roleId == 1)
+        return "用户";
+      if (Info.roleId == 2)
+        return "工作者";
+    });
     const chooseFile = async () => {
       try {
         const res = await common_vendor.index.chooseFile({
           count: 1,
-          // 可以选择的文件数量，这里选择1个文件
+          // 可以选择的文件数量
           success: (res2) => {
-            console.log("Selected file:", res2.tempFiles[0]);
-            console.log(Info.username);
             apis_userApis.UpLoad(res2.tempFiles[0], Info.username);
           },
           fail: (err) => {
@@ -37,8 +74,10 @@ const _sfc_main = {
       }
     };
     const getPic = common_vendor.computed(() => {
-      `${utils_baseUrl.baseUrl}/upload/${Info.username}.jpg`;
-      return utils_imgs_baseImg.baseImg;
+      let path = utils_imgs_baseImg.baseImg;
+      if (Info.userPic)
+        path = Info.userPic;
+      return path;
     });
     const Info = stores_userinfo.useUserInfoStore();
     function jump(url) {
@@ -115,31 +154,38 @@ const _sfc_main = {
         t: !isEdit.value,
         v: isEdit.value ? 1 : "",
         w: common_vendor.unref(Info).nickname,
-        x: !isEdit.value ? 1 : "",
-        y: !isEdit.value,
-        z: isEdit.value ? 1 : "",
-        A: common_vendor.unref(Info).nickname,
-        B: !isEdit.value ? 1 : "",
-        C: !isEdit.value,
-        D: isEdit.value ? 1 : "",
-        E: common_vendor.unref(Info).nickname ? common_vendor.unref(Info).nickname : "暂无内容",
+        x: update.nickname,
+        y: common_vendor.o(($event) => update.nickname = $event.detail.value),
+        z: !isEdit.value ? 1 : "",
+        A: !isEdit.value,
+        B: isEdit.value ? 1 : "",
+        C: common_vendor.unref(Info).age ? common_vendor.unref(Info).age : "暂无内容",
+        D: update.age,
+        E: common_vendor.o(($event) => update.age = $event.detail.value),
         F: !isEdit.value ? 1 : "",
         G: !isEdit.value,
         H: isEdit.value ? 1 : "",
-        I: common_vendor.unref(Info).phone_number ? common_vendor.unref(Info).phone_number : "暂无内容",
-        J: !isEdit.value ? 1 : "",
-        K: !isEdit.value,
-        L: isEdit.value ? 1 : "",
-        M: common_vendor.unref(Info).phone_number ? common_vendor.unref(Info).phone_number : "暂无内容",
-        N: !isEdit.value ? 1 : "",
-        O: common_vendor.t(common_vendor.unref(Info).email),
-        P: isEdit.value
+        I: common_vendor.unref(Info).gender ? common_vendor.unref(Info).gender : "暂无内容",
+        J: update.gender,
+        K: common_vendor.o(($event) => update.gender = $event.detail.value),
+        L: !isEdit.value ? 1 : "",
+        M: !isEdit.value,
+        N: isEdit.value ? 1 : "",
+        O: common_vendor.unref(Info).number ? common_vendor.unref(Info).number : "暂无内容",
+        P: update.number,
+        Q: common_vendor.o(($event) => update.number = $event.detail.value),
+        R: !isEdit.value ? 1 : "",
+        S: common_vendor.t(common_vendor.unref(roleName)),
+        T: common_vendor.t(common_vendor.unref(Info).email),
+        U: common_vendor.t(common_vendor.unref(Info).createTime),
+        V: isEdit.value
       }, isEdit.value ? {
-        Q: common_vendor.o(setIsEdit)
+        W: common_vendor.o(setIsEdit),
+        X: common_vendor.o(updateInfo)
       } : {}, {
-        R: isEdit.value
+        Y: isEdit.value
       }, isEdit.value ? {
-        S: common_vendor.o(($event) => jump("/pages/public/setting"))
+        Z: common_vendor.o(($event) => jump("/pages/public/setting"))
       } : {});
     };
   }

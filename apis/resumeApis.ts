@@ -8,25 +8,34 @@ interface Res {
 	data : any
 }
 export async function NewResume(data) {
+	console.log(data)
 	const res:Res = await request({
 		url: "/resume",
 		method: "POST",
 		header: {
 			'content-type': "application/json"
 		},
-		data
+		data:data
 	})
 	console.log(res)
+	return res
 }
 
-export async function GetResumeList(pageNum:number, pageSize:number, state ?: string) {
-	const _data = {
-			pageNum:pageNum |1,
-			pageSize:pageSize |10,
-			state
+export async function GetResumeList(info) {
+	let _data = {
+			pageNum:info.pageNum |1,
+			pageSize:info.pageSize |10,
+			label:undefined
+	}
+	if(info.label!=0){
+		_data = {
+				pageNum:info.pageNum |1,
+				pageSize:info.pageSize |10,
+				label:info.label
+		}
 	}
 		const res:Res = await request({
-			url: '/resume',
+			url: '/resume/getResume',
 			method: "GET",
 			data:_data
 		})
@@ -72,11 +81,11 @@ export async function DeleteResume(id : number) {
 
 
 export async function ResumeDetails(id : number) {
-	return await request({
+	const res = await request({
 		url: '/resume/detail',
 		method: "GET",
 		data: {
-			id: id,
+			id
 		}
 	})
 }

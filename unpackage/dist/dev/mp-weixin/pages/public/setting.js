@@ -86,6 +86,9 @@ const _sfc_main = {
         n: common_vendor.p({
           title: "退出登录",
           clickable: true
+        }),
+        o: common_vendor.p({
+          title: "注销账户"
         })
       } : {});
     };

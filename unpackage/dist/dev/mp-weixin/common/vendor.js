@@ -6270,34 +6270,6 @@ function vFor(source, renderItem) {
   }
   return ret;
 }
-function renderSlot(name, props = {}, key) {
-  const instance = getCurrentInstance();
-  const { parent, isMounted, ctx: { $scope } } = instance;
-  const vueIds = ($scope.properties || $scope.props).uI;
-  if (!vueIds) {
-    return;
-  }
-  if (!parent && !isMounted) {
-    onMounted(() => {
-      renderSlot(name, props, key);
-    }, instance);
-    return;
-  }
-  const invoker = findScopedSlotInvoker(vueIds, instance);
-  if (invoker) {
-    invoker(name, props, key);
-  }
-}
-function findScopedSlotInvoker(vueId, instance) {
-  let parent = instance.parent;
-  while (parent) {
-    const invokers = parent.$ssi;
-    if (invokers && invokers[vueId]) {
-      return invokers[vueId];
-    }
-    parent = parent.parent;
-  }
-}
 function stringifyStyle(value) {
   if (isString(value)) {
     return value;
@@ -6341,7 +6313,6 @@ function withModelModifiers(fn, { number, trim }, isComponent = false) {
 }
 const o$1 = (value, key) => vOn(value, key);
 const f$1 = (source, renderItem) => vFor(source, renderItem);
-const r$1 = (name, props, key) => renderSlot(name, props, key);
 const s$1 = (value) => stringifyStyle(value);
 const e = (target, ...sources) => extend(target, ...sources);
 const n$1 = (value) => normalizeClass(value);
@@ -8051,27 +8022,6 @@ const pages = [
     }
   },
   {
-    path: "pages/List/particulars",
-    style: {
-      navigationBarTitleText: "",
-      enablePullDownRefresh: false
-    }
-  },
-  {
-    path: "pages/List/showOrder",
-    style: {
-      navigationBarTitleText: "",
-      enablePullDownRefresh: false
-    }
-  },
-  {
-    path: "pages/List/showResume",
-    style: {
-      navigationBarTitleText: "",
-      enablePullDownRefresh: false
-    }
-  },
-  {
     path: "pages/home/productList",
     style: {
       navigationBarTitleText: "产品",
@@ -8079,58 +8029,44 @@ const pages = [
     }
   },
   {
-    path: "pages/List/orderParticulars",
+    path: "pages/reservation/reservation",
+    style: {
+      navigationBarTitleText: "发布预约",
+      enablePullDownRefresh: false
+    }
+  },
+  {
+    path: "pages/reservation/list",
     style: {
       navigationBarTitleText: "",
       enablePullDownRefresh: false
     }
   },
   {
-    path: "pages/List/userDetails",
-    style: {
-      navigationBarTitleText: "简历详情",
-      enablePullDownRefresh: false
-    }
-  },
-  {
-    path: "pages/List/schedule",
+    path: "pages/reservation/reservationParticulars",
     style: {
       navigationBarTitleText: "",
       enablePullDownRefresh: false
     }
   },
   {
-    path: "pages/List/orderDetails",
+    path: "pages/user/showUser",
     style: {
       navigationBarTitleText: "",
       enablePullDownRefresh: false
     }
   },
   {
-    path: "pages/List/myResume",
+    path: "pages/resume/resume",
     style: {
       navigationBarTitleText: "",
       enablePullDownRefresh: false
     }
   },
   {
-    path: "pages/List/myOrder",
+    path: "pages/resume/writeResume",
     style: {
-      navigationBarTitleText: "",
-      enablePullDownRefresh: false
-    }
-  },
-  {
-    path: "pages/List/createResume",
-    style: {
-      navigationBarTitleText: "",
-      enablePullDownRefresh: false
-    }
-  },
-  {
-    path: "pages/List/createOrder",
-    style: {
-      navigationBarTitleText: "",
+      navigationBarTitleText: "编辑简历",
       enablePullDownRefresh: false
     }
   }
@@ -8168,10 +8104,6 @@ const tabBar = {
     {
       pagePath: "pages/home/home",
       text: "主页"
-    },
-    {
-      pagePath: "pages/home/productList",
-      text: "产品"
     },
     {
       pagePath: "pages/home/user",
@@ -10597,10 +10529,8 @@ exports.m = m$1;
 exports.n = n$1;
 exports.o = o$1;
 exports.onLoad = onLoad;
-exports.onMounted = onMounted;
 exports.onShow = onShow;
 exports.p = p$1;
-exports.r = r$1;
 exports.reactive = reactive;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;

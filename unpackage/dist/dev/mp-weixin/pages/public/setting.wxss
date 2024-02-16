@@ -10,12 +10,9 @@
 }
 .setting .list.data-v-5fed78fb {
   border-radius: 20rpx;
-  overflow: hidden;
   margin: 10rpx;
+  overflow: hidden;
 }
 .setting .list .item.data-v-5fed78fb {
   height: 100rpx;
-}
-.setting .list button.data-v-5fed78fb {
-  background-color: var(--backgroundColor);
 }

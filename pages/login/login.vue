@@ -11,6 +11,13 @@
 				<view class="form-title color">昵称</view>
 				<input class="form-input" v-model.trim="userInfo.nickname" placeholder="昵称" />
 			</view>
+			<view class="form" v-show="type==1">
+				<view class="form-title color">身份</view>
+				<view class="auth-list flex">
+					<view class="auth-item" :class="{activeroleId:userInfo.roleId==1}" @click="changeRole(1)">用户</view>
+					<view class="auth-item" :class="{activeroleId:userInfo.roleId==2}" @click="changeRole(2)">工作者</view>
+				</view>
+			</view>
 			<view class="form" v-show="type!=2">	
 				<view class="form-title color" >密码</view>
 				<input class="form-input" type="password" v-model.trim="userInfo.password" placeholder="请输入密码" />
@@ -81,6 +88,7 @@
 		password:'',
 		email:'',
 		captcha:'',
+		roleId:0
 	})
 	// clear
 	function clear(){
@@ -90,6 +98,8 @@
 		userInfo.rePassword=''
 		userInfo.email=''
 		userInfo.captcha=''
+		userInfo.roleId=''
+		
 	}
 	// changeType
 	function change(val){
@@ -114,6 +124,11 @@
 	//         // const data = await FindPassword(userInfo);
 	// 		loading.value = false;
 	// }
+	
+	//
+	const changeRole = (val)=>{
+		userInfo.roleId = val
+	}
 	// 注册
 	async function register() {
 	    loading.value = true;
@@ -136,7 +151,9 @@
 	</script>
 
 <style lang="scss" scoped>
-	
+	.activeroleId{
+		background-color: var(--borderColor);
+	}
 	.Box{
 		// padding: 200upx 20upx 50upx 20upx;
 		padding:  50upx 20upx;
@@ -178,6 +195,16 @@
 			}
 			.form-button:disabled{
 				background-color: #b5b5b5;
+			}
+			.auth-list{
+				.auth-item{
+					flex: 1;
+					text-align: center;
+					height: 60rpx;
+					line-height: 60rpx;
+					margin: 0 20rpx;
+					border:1rpx solid var(--borderColor);
+				}
 			}
 		}
 		.message{

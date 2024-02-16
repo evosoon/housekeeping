@@ -4,12 +4,12 @@
 			<image :src="getPic" mode="widthFix" alt="" />
 		</view>
 		<view class="info backgroundColor">
-			<text class="info_username color">{{Info.nickname}}</text>
-			<text v-if="Info.username" class="color">用户名： {{Info.username}}\n</text>
-			<text v-if="Info.email" class="color">邮箱号： {{Info.email}}\n</text>
+			<text class="info_username color">{{reservation.nickname}}</text>
+			<text v-if="reservation.username" class="color">用户名： {{reservation.username}}\n</text>
+			<text v-if="reservation.email" class="color">邮箱号： {{reservation.email}}\n</text>
 		</view>
 
-		<view class="cards flex backgroundColor">
+<!-- 		<view class="cards flex backgroundColor">
 			<view class="button flex color">
 				<view><uni-icons type="heart" color="gray" size="16"></uni-icons> 0</view>
 				<text>喜欢</text>
@@ -23,11 +23,17 @@
 				<text><uni-icons type="notification" color="gray" size="16"></uni-icons></text>
 				<text>通知</text>
 			</view>
+		</view> -->
+		
+		<view v-if="remark.total" class="list changeInfo backgroundColor JumpView">
+			<template v-for="item in remark.items" :key="item">
+				<view>{{item}}</view>
+			</template>
+		</view>
+		<view v-else class="list  backgroundColor ">
+			暂无评价
 		</view>
 		
-		<view class="list changeInfo backgroundColor JumpView">
-		
-		</view>
 	<!-- 	<view class="list backgroundColor">
 			这里是占位置用的
 		</view> -->
@@ -43,19 +49,30 @@
 	import { UpLoad,UpdateInfo } from '../../apis/userApis.ts'
 	import {baseUrl} from '../../utils/baseUrl'
 	import baseImg from '../../utils/imgs/baseImg'
+	import {ReservationRemark} from '../../apis/reservationApis.ts'
 	
 	const getPic = computed(()=>{
 			let path = baseImg
-			if(Info.userPic) path = Info.userPic
+			if(reservation.userPic) path = reservation.userPic
 			return path
 	})
-	const Info = {
-		username:"zs",
-		nickname:'ss',
-		email:'sdf'
+	const remark = reactive({
+		total :0,
+		items:[]
+		
+	})
+	let reservation =ref({})
+	const reservationRemark = async()=>{
+		const res = await ReservationRemark({pageNum:1,pageSize:20,id:reservation.id})
+		remark.total = res.total
+		remark.items = res.items
 	}
 	onShow(()=>{
 		RouteIntercept()
+		reservationRemark()
+	})
+	onLoad((option)=>{
+		reservation.value = JSON.parse(option.item)
 	})
 </script>
 
@@ -140,10 +157,11 @@
 
 	.list {
 		padding: 40upx;
-		margin-bottom: 20upx;
+		margin: 40upx 0;
 		border-radius: 40upx;
 		box-shadow: 0 0 5upx 1upx var(--gray);
-
+		min-height: 300rpx;
+		text-align: center;
 		img {
 			object-fit: cover;
 			width: 100%;

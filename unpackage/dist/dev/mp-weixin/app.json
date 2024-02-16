@@ -15,18 +15,13 @@
     "pages/user/information",
     "pages/user/messageList",
     "pages/public/assist",
-    "pages/List/particulars",
-    "pages/List/showOrder",
-    "pages/List/showResume",
     "pages/home/productList",
-    "pages/List/orderParticulars",
-    "pages/List/userDetails",
-    "pages/List/schedule",
-    "pages/List/orderDetails",
-    "pages/List/myResume",
-    "pages/List/myOrder",
-    "pages/List/createResume",
-    "pages/List/createOrder"
+    "pages/reservation/reservation",
+    "pages/reservation/list",
+    "pages/reservation/reservationParticulars",
+    "pages/user/showUser",
+    "pages/resume/resume",
+    "pages/resume/writeResume"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -48,10 +43,6 @@
       {
         "pagePath": "pages/home/home",
         "text": "主页"
-      },
-      {
-        "pagePath": "pages/home/productList",
-        "text": "产品"
       },
       {
         "pagePath": "pages/home/user",

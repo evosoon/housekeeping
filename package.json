@@ -1,6 +1,14 @@
 {
   "dependencies": {
     "axios": "^1.6.0",
-    "pinia": "^2.0.33"
+    "npx": "^10.2.2",
+    "pinia": "^2.0.33",
+    "vue-baidu-map": "^0.21.22",
+    "vue-baidu-map-3x": "^1.0.35",
+    "vue3-baidu-map-gl": "^2.3.2"
+  },
+  "devDependencies": {
+    "browserslist": "^4.22.2",
+    "caniuse-lite": "^1.0.30001577"
   }
 }

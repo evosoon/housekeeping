@@ -8,14 +8,13 @@
 			<view class="work-exprience" v-text="Info.exprience"></view>
 		</view>
 		<view class="user flex">
-			<image :src="getPic" mode="aspectFill" alt="" class="user-img" @click="jump('/pages/user/showUser')" />
-			<view class="user-info" @click.stop="jump('/pages/user/showUser')">
-				<view class="user-name">用户昵称</view>
-				<view class="user-eval">用户评价</view>
+			<image :src="getPic" mode="aspectFill" alt="" class="user-img" @click.stop="jump('/pages/user/showUser?item='+JSON.stringify(Info))" />
+			<view class="user-info" @click.stop="jump('/pages/user/showUser?item='+JSON.stringify(Info))">
+				<view class="user-name">{{Info.nickname}}</view>
+				<view class="user-eval">{{Info.score| 5}} 分</view>
 			</view>
 			<view class="user-zero"></view>
 			<view class="user-gis flex">
-				地理信息
 			</view>
 		</view>
 	</view>
@@ -23,15 +22,17 @@
 </template>
 
 <script lang="ts" setup>
+	
 	import {computed,toRefs,defineProps} from "vue"
 	import baseImg from '@/utils/imgs/baseImg'
+	import {baseUrl} from '@/utils/baseUrl.ts'
 	const props = defineProps({
 		Info:Object
 	})
 	const {Info} = toRefs(props)
 	const getPic = computed(()=>{
 			let path = baseImg
-			if(Info.userPic) path = Info.userPic
+			if(Info.user_pic) path = baseUrl+'/static/uploads'+Info.user_pic
 			return path
 	})
 	interface ResumeInfo{

@@ -19,10 +19,22 @@ async function UpdatePwd(info) {
   };
   const data = await request({
     url: "/user/updatePwd",
-    method: "PATCH",
+    method: "PUT",
+    data: _info
+  });
+  return data.message;
+}
+async function UpdateEmail(info) {
+  const _info = {
+    captcha: info.captcha
+  };
+  const data = await request({
+    url: "/user/updatePwd",
+    method: "PUT",
     data: _info
   });
   return data.message;
 }
 exports.ForgetPwd = ForgetPwd;
+exports.UpdateEmail = UpdateEmail;
 exports.UpdatePwd = UpdatePwd;

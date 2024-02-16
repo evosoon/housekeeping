@@ -1,5 +1,6 @@
 <script>
 	import { GetInfo } from '@/apis/userApis'
+
 	export default {
 		onLaunch: async function() {
 			
@@ -8,6 +9,7 @@
 			if(uni.getStorageSync('access_token')){
 				await GetInfo()
 			}
+	
 		},
 		onShow: function() {
 			console.log('App Show')

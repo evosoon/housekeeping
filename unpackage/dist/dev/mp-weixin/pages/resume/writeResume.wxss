@@ -1,0 +1,15 @@
+/* 水平间距 */
+/* 水平间距 */
+.Reservation .btns.data-v-ba2736b8 {
+  width: 100%;
+}
+.Reservation .btns .submit.data-v-ba2736b8 {
+  flex: 3;
+}
+.Reservation .btns .clear.data-v-ba2736b8 {
+  flex: 1;
+}
+.Reservation .button.data-v-ba2736b8 {
+  margin: 30rpx 10rpx;
+  color: var(--borderColor);
+}

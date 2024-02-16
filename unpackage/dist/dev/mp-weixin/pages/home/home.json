@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "view",
   "usingComponents": {
-    "swiper": "../../components/Home/Swiper",
-    "labelcard": "../../components/Home/LabelCard"
+    "resume-list": "../../components/Home/ResumeList"
   }
 }

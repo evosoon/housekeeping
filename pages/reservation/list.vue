@@ -9,9 +9,22 @@
 			暂无内容
 		</view>
 		<template v-for="item in list.items" :key="item.id">
-				<uni-card :title="item.request" :sub-title="item.address" :extra="item.workTime" @click="enter(item)">
-					<text class="uni-body" >点击查看详情</text>
-				</uni-card>
+				<view class="Item">
+					<view class="title">
+						需求：{{item.request}}
+					</view>
+					<view class="address">
+						地址：{{item.address}}
+					</view>
+					<view class="other flex">
+						<view class="">
+							薪水：{{item.salary}}
+						</view>
+						<view class="">
+							时间：{{item.workTime}}
+						</view>
+					</view>
+				</view>
 		</template>
 	</view>
 </template>
@@ -63,11 +76,12 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 			.title-item{
 				flex: 1;
 				text-align: center;
+				background-color: #bababa;
+				color:var(--backgroundColor);
 			}
 			.title-item-active{
 				background-color: var(--borderColor);
 				color:var(--backgroundColor);
-				border-radius: 10upx;
 			}
 		}
 		.zero{
@@ -78,6 +92,18 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 			margin: 100upx;
 			border-radius: 30upx;
 			color:var(--borderColor);
+		}
+		.Item{
+			padding: 10rpx 20rpx;
+			margin: 20rpx;
+			border:1rpx solid var(--borderColor);
+			border-radius: 10rpx;
+			.title{
+				
+			}
+			.other{
+				justify-content: space-between;
+			}
 		}
 	}
 	

@@ -1,0 +1,55 @@
+/* 水平间距 */
+/* 水平间距 */
+.ResumeList.data-v-c4d600f1 {
+  margin: 10rpx 10rpx;
+  padding: 20rpx 10rpx;
+  border-radius: 10rpx;
+}
+.ResumeList .work.data-v-c4d600f1 {
+  margin-bottom: 10rpx;
+}
+.ResumeList .work .work-introduction.data-v-c4d600f1 {
+  font-size: 1.1em;
+  flex: 1;
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.ResumeList .work .work-salary.data-v-c4d600f1 {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-left: 10rpx;
+}
+.ResumeList .work .work-exprience.data-v-c4d600f1 {
+  font-size: 0.9em;
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding: 10rpx 5rpx;
+}
+.ResumeList .user .user-img.data-v-c4d600f1 {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  margin: 10rpx 15rpx 10rpx 0;
+}
+.ResumeList .user .user-info.data-v-c4d600f1 {
+  height: 80rpx;
+}
+.ResumeList .user .user-name.data-v-c4d600f1, .ResumeList .user .user-eval.data-v-c4d600f1 {
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.ResumeList .user .user-eval.data-v-c4d600f1 {
+  font-size: 0.8em;
+}
+.ResumeList .user .user-zero.data-v-c4d600f1 {
+  flex: 1;
+}
+.ResumeList .user .user-gis.data-v-c4d600f1 {
+  align-items: end;
+}

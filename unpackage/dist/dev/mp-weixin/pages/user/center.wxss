@@ -80,21 +80,19 @@
 }
 .list .changeAvatar.data-v-ba03e1e9 {
   height: 40px;
-}
-.list .changeAvatar .upFile.data-v-ba03e1e9 {
-  height: 40rpx;
-  display: inline-block;
-  background-color: gray;
   width: 100%;
+  text-align: center;
+  color: var(--borderColor);
+  font-weight: bold;
+}
+.list .changeAvatar button.data-v-ba03e1e9 {
+  color: var(--borderColor);
 }
 .list .title.data-v-ba03e1e9 {
   color: var(--borderColor);
   font-size: 40rpx;
   font-weight: 600;
   padding: 20rpx 10px;
-}
-.list .form-border.data-v-ba03e1e9 {
-  border-left: 5rpx solid var(--borderColor);
 }
 .list .form.data-v-ba03e1e9 {
   margin: 40rpx 20rpx;

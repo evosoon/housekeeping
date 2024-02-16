@@ -69,13 +69,12 @@ export async function Login(form:Login,val:string){
 
 
 //注册
-export async function Register(data:Register){
-	let _data = {...data,roleId:1}
+export async function Register(data){
     try {
 		const res:Res = await request({
 		    url:'/user/register',
 		    method:'POST',
-		    data:_data
+		    data
 		})
 		return res.message
 		

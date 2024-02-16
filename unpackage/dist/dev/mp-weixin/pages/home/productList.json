@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "产品",
   "enablePullDownRefresh": false,
-  "usingComponents": {
-    "orderlist": "../../components/List/OrderList"
-  }
+  "usingComponents": {}
 }

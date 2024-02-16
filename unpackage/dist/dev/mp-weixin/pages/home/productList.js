@@ -1,13 +1,9 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const apis_reservationApis = require("../../apis/reservationApis.js");
-require("../../apis/resumeApis.js");
-require("../../utils/http.js");
-require("../../utils/baseUrl.js");
-if (!Math) {
-  Orderlist();
+if (!Array) {
+  const _component_Orderlist = common_vendor.resolveComponent("Orderlist");
+  _component_Orderlist();
 }
-const Orderlist = () => "../../components/List/OrderList.js";
 const _sfc_main = {
   __name: "productList",
   setup(__props) {
@@ -17,11 +13,6 @@ const _sfc_main = {
     const changestyle = (index) => {
       select.value = index;
     };
-    common_vendor.onMounted(() => {
-      apis_reservationApis.getReservationList(1, 10).then((res) => {
-        introduction.value = res.data.items;
-      });
-    });
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f(serve, (item, index, i0) => {

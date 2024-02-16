@@ -1,0 +1,26 @@
+/* 水平间距 */
+/* 水平间距 */
+.List .title.data-v-9c055285 {
+  height: 90rpx;
+  line-height: 90rpx;
+  width: 100%;
+  margin-bottom: 10rpx;
+}
+.List .title .title-item.data-v-9c055285 {
+  flex: 1;
+  text-align: center;
+}
+.List .title .title-item-active.data-v-9c055285 {
+  background-color: var(--borderColor);
+  color: var(--backgroundColor);
+  border-radius: 10rpx;
+}
+.List .zero.data-v-9c055285 {
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  height: 200rpx;
+  margin: 100rpx;
+  border-radius: 30rpx;
+  color: var(--borderColor);
+}
