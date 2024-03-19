@@ -42,6 +42,8 @@ export default class Request {
 		return new Promise((resolve, reject) => {
 			// console.log(header)
 			// 请求
+			let time = Date.now()
+			
 			uni.request({
 				url: requestUrl,
 				data: data,
@@ -110,12 +112,13 @@ export default class Request {
 					resolve(e.data);
 				},
 				//请求完成
-				complete() {
+				complete(e) {
 					//隐藏加载
 					// if (!hideLoading) {
 					//     uni.hideLoading();
 					// }
 					// resolve(reject);
+					console.log({...param,time:Date.now()-time})
 					return;
 				}
 			})

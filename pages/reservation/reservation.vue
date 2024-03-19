@@ -106,7 +106,7 @@
 		address:"",
 		salary:0,
 		workTime:"",
-		workType:""
+		workType:"",
 	})
 	const submit = async () => {
 		const {status} = await NewReservation({
@@ -115,7 +115,9 @@
 			salary : reservation.salary,
 			workTime : reservation.workTime,
 			workType:reservation.workType,
-			isAsigned:0
+			isAsigned:0,
+			lng:lng.value,
+			lat:lat.value,
 		})
 		if(status)clear()
 	}

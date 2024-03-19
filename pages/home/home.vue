@@ -4,9 +4,14 @@
 			<!-- <image :src="baseImg" mode="widthFix" class="image"></image> -->
 		</view>
 		<view class="work-type-list flex" >
-			<view class="work-type-item" :class="{'work-type-item-active':chooseLabel==0 | !chooseLabel}" @click="getResumeList(0)">全部</view>
-		<template v-for="item in WorkInfoStore.workTypeList" :key="item.id">
-			<view class="work-type-item" :class="{'work-type-item-active':chooseLabel==item.id}" @click="getResumeList(item.id)" >{{item.workType}}</view>
+			
+			<view class="work-type-item" :class="{'work-type-item-active':chooseLabel==0 | !chooseLabel}" @click="superGet(0)">全部</view>
+			<view v-if="reservationList.total" class="work-type-item" :class="{'work-type-item-active':chooseLabel==-1 }" @click="superGet(-1)">
+				我的附近
+				<input type="number" v-model="dist" @blur="superGet(-1)">
+			</view>
+		<template v-if="UserInfoStore.roleId !=2">
+			<view v-for="item in WorkInfoStore.workTypeList" :key="item.id"  class="work-type-item" :class="{'work-type-item-active':chooseLabel==item.id}" @click="superGet(item.id)" >{{item.workType}}</view>
 		</template>
 		</view>
 		<view class="home-list">
@@ -84,7 +89,7 @@
 	import baseImg from '@/utils/imgs/baseImg'
 	import {GetResumeList} from '@/apis/resumeApis'
 	import { GetWorkType } from '@/apis/workTypeApis'
-	import {GetReservation} from '@/apis/reservationApis'
+	import {GetReservation,GetNearReservation} from '@/apis/reservationApis'
 	import { onLoad, onShow } from "@dcloudio/uni-app"
 	
 	import { useUserInfoStore } from '@/stores/userinfo.ts'
@@ -92,38 +97,38 @@
 	import {useWorkInfoStore} from '@/stores/workinfo.ts'
 	const WorkInfoStore = useWorkInfoStore()
 	let chooseLabel = ref(0)
-	
-	// user
-	let resumeList = reactive({})
-	const getResumeList = async(label)=>{
+	const reservationList = reactive({})
+	const resumeList = reactive({})
+	let dist = ref(5)
+	const superGet = async(label)=>{
 		chooseLabel.value = label
+		if(UserInfoStore && UserInfoStore.roleId===2){
+			if(label === -1){
+				const {data} = await GetNearReservation( {lng:117.140051 ,lat:39.061951,dist:dist.value})
+				reservationList.total = data.length
+				reservationList.items = data
+			}else{
+				const {total,items} = await GetReservation({pageNum:1,pageSize:100,state:"已发布",label:chooseLabel.value})
+				reservationList.total = total
+				reservationList.items = items
+			}
+		}else{
 			const {total,items} = await GetResumeList({pageNum:1,pageSize:100,label:chooseLabel.value})
-		resumeList.total = total
-		resumeList.items = items
+			resumeList.total = total
+			resumeList.items = items
+		}
+	}
+
 		
-	}
-	
-	// worker
-	let reservationList = reactive({})
-	const getReservationList = async()=>{
-		const {total,items} = await GetReservation({pageNum:1,pageSize:100,state:"已发布"})
-		reservationList.total = total
-		reservationList.items = items
-		console.log(reservationList)
-	}
 	const getWorkType = async()=>{
 		const list = await GetWorkType()
 			WorkInfoStore.changeWorkTypeList(list)
 	}
 	onLoad(async()=>{
 		getWorkType()
-		if(UserInfoStore && UserInfoStore.roleId===2){
-			getReservationList()
-		} else {
-			 getResumeList()
-		}
-		
+	superGet()
 	})
+
  </script>
  
  <style lang="scss" scoped>
@@ -138,14 +143,9 @@
 		
 		.work-type-list{
 			.work-type-item{
-				
 				padding: 10rpx;
-				
 			}
-			
-			
 		}
-		
 		.home-picture{
 			position: relative;
 			.image{

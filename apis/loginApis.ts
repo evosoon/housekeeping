@@ -28,6 +28,7 @@ function UserInfostore (userInfo){
 }
 
 export async function Login(form:Login,val:string){
+	
 	let jumpAddress = val
 	let url = '/user/usernameLogin'
 	if(form.email) url = '/user/emailLogin'
@@ -37,6 +38,8 @@ export async function Login(form:Login,val:string){
 			method:'POST',
 			data:form
 		})
+		
+		
 		// 失败
 		if(res.status>=400){
 			if(res.status==401)uni.navigateTo({ url:"/pages/login/login" })

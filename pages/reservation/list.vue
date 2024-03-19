@@ -9,36 +9,49 @@
 			暂无内容
 		</view>
 		<template v-for="item in list.items" :key="item.id">
-				<view class="Item">
-					<view class="title">
-						需求：{{item.request}}
-					</view>
-					<view class="address">
-						地址：{{item.address}}
-					</view>
-					<view class="other flex">
-						<view class="">
-							薪水：{{item.salary}}
-						</view>
-						<view class="">
-							时间：{{item.workTime}}
-						</view>
-					</view>
-				</view>
+		<view class="Item">	
+			 <view class="title">
+			 	需求：{{item.request}}
+			 </view>
+			 <view class="address">
+			 	地址：{{item.address}}
+			 </view>
+			 <view class="other flex">
+			 	<view class="">
+			 		薪水：{{item.salary}}
+			 	</view>
+			 	<view class="">
+			 		时间：{{item.workTime || item.work_time}}
+			 	</view>
+			 </view>
+			 <ItemList :item="item"></ItemList>
+			 <view v-if="nowState == '进行中' ">
+				 <view class="choose" @click="finish(item.id)">已完成</view>
+			 </view>
+			<view v-if="nowState == '已发布' && UserInfoStore.roleId===2">
+							 <view class="choose" @click="choose(item.id,1)">接受</view>
+							 <view class="choose" @click="choose(item.id,0)">拒绝</view>
+			</view>
+			 </view>
+			 
 		</template>
 	</view>
 </template>
 
 <script lang="ts" setup>
 import RouteIntercept from '../../hooks/RouteIntercept';
+import ItemList from '../../components/ListItem.vue';
+
 	import { onShow } from '@dcloudio/uni-app'
-	import { GetReservation } from "@/apis/reservationApis"
+	import { GetReservation,ReservationRemark,ChangeReservation } from "@/apis/reservationApis"
 	import { ref,reactive } from "vue"
+	import { useUserInfoStore } from '@/stores/userinfo.ts'
+	const UserInfoStore = useUserInfoStore()
 	let nowState = ref('已发布')
 	
 	const title = [ {id:1,title:"已发布",state:"已发布"},
-					{id:1,title:"进行中",state:"进行中"},
-					{id:1,title:"已完成",state:"已完成"},]
+					{id:2,title:"进行中",state:"进行中"},
+					{id:3,title:"已完成",state:"已完成"},]
 	
 	let list = reactive({
 		total:0,
@@ -52,17 +65,31 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 	}
 	
 	
-	const getReservation = async(state:string)=>{
-		nowState.value = state
-		const {total,items} = await GetReservation({state,pageNum:1,pageSize:10})
-		list.total = total
-		list.items = items
+	const getReservation = async(state?:string)=>{
+		nowState.value = state ||  "已发布"
+		if (nowState.value == "已发布" && UserInfoStore.roleId===2){
+			const {data:{data}} = await ReservationRemark({pageNum:1,pageSize:100})
+			list.total = data.total
+			list.items = data.items
+		}else{
+			const {total,items} = await GetReservation({state:nowState.value,pageNum:1,pageSize:100})
+			list.total = total
+			list.items = items
+		}
+		
+		
 	}
+	
+	const choose = async(id,agree)=>{
+		await ChangeReservation(`?reservationId=${id}&agree=${agree}`)
+	}
+	const finish = async(id)=>{
+		await ChangeReservation(`?reservationId=${id}`)
+	}
+	
 	onShow(async()=>{
 		RouteIntercept()
-		const {total,items} = await GetReservation({state:"已发布",pageNum:1,pageSize:10})
-		list.total = total
-		list.items = items
+		getReservation()
 	})
 </script>
 
@@ -103,6 +130,16 @@ import RouteIntercept from '../../hooks/RouteIntercept';
 			}
 			.other{
 				justify-content: space-between;
+			}
+			.choose{
+				display: inline-block;
+				padding: 5rpx 20rpx;
+				margin: 10rpx;
+				color: red;
+				border: 1rpx solid var(--color);
+			}
+			.choose:first-child{
+				color: green;
 			}
 		}
 	}
